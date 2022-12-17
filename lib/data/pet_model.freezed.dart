@@ -23,7 +23,7 @@ mixin _$Pet {
   String? get uid => throw _privateConstructorUsedError;
   String? get name => throw _privateConstructorUsedError;
   DateTime? get birthDay => throw _privateConstructorUsedError;
-  String? get imageBytes => throw _privateConstructorUsedError;
+  List<int>? get image => throw _privateConstructorUsedError;
   SexType? get sexType => throw _privateConstructorUsedError;
   GrowthType? get growth => throw _privateConstructorUsedError;
   AnimalType? get species => throw _privateConstructorUsedError;
@@ -43,7 +43,7 @@ abstract class $PetCopyWith<$Res> {
       {String? uid,
       String? name,
       DateTime? birthDay,
-      String? imageBytes,
+      List<int>? image,
       SexType? sexType,
       GrowthType? growth,
       AnimalType? species,
@@ -65,7 +65,7 @@ class _$PetCopyWithImpl<$Res, $Val extends Pet> implements $PetCopyWith<$Res> {
     Object? uid = freezed,
     Object? name = freezed,
     Object? birthDay = freezed,
-    Object? imageBytes = freezed,
+    Object? image = freezed,
     Object? sexType = freezed,
     Object? growth = freezed,
     Object? species = freezed,
@@ -84,10 +84,10 @@ class _$PetCopyWithImpl<$Res, $Val extends Pet> implements $PetCopyWith<$Res> {
           ? _value.birthDay
           : birthDay // ignore: cast_nullable_to_non_nullable
               as DateTime?,
-      imageBytes: freezed == imageBytes
-          ? _value.imageBytes
-          : imageBytes // ignore: cast_nullable_to_non_nullable
-              as String?,
+      image: freezed == image
+          ? _value.image
+          : image // ignore: cast_nullable_to_non_nullable
+              as List<int>?,
       sexType: freezed == sexType
           ? _value.sexType
           : sexType // ignore: cast_nullable_to_non_nullable
@@ -118,7 +118,7 @@ abstract class _$$_PetCopyWith<$Res> implements $PetCopyWith<$Res> {
       {String? uid,
       String? name,
       DateTime? birthDay,
-      String? imageBytes,
+      List<int>? image,
       SexType? sexType,
       GrowthType? growth,
       AnimalType? species,
@@ -137,7 +137,7 @@ class __$$_PetCopyWithImpl<$Res> extends _$PetCopyWithImpl<$Res, _$_Pet>
     Object? uid = freezed,
     Object? name = freezed,
     Object? birthDay = freezed,
-    Object? imageBytes = freezed,
+    Object? image = freezed,
     Object? sexType = freezed,
     Object? growth = freezed,
     Object? species = freezed,
@@ -156,10 +156,10 @@ class __$$_PetCopyWithImpl<$Res> extends _$PetCopyWithImpl<$Res, _$_Pet>
           ? _value.birthDay
           : birthDay // ignore: cast_nullable_to_non_nullable
               as DateTime?,
-      imageBytes: freezed == imageBytes
-          ? _value.imageBytes
-          : imageBytes // ignore: cast_nullable_to_non_nullable
-              as String?,
+      image: freezed == image
+          ? _value._image
+          : image // ignore: cast_nullable_to_non_nullable
+              as List<int>?,
       sexType: freezed == sexType
           ? _value.sexType
           : sexType // ignore: cast_nullable_to_non_nullable
@@ -188,11 +188,12 @@ class _$_Pet with DiagnosticableTreeMixin implements _Pet {
       {this.uid,
       this.name,
       this.birthDay,
-      this.imageBytes,
+      final List<int>? image,
       this.sexType,
       this.growth,
       this.species,
-      this.note});
+      this.note})
+      : _image = image;
 
   factory _$_Pet.fromJson(Map<String, dynamic> json) => _$$_PetFromJson(json);
 
@@ -202,8 +203,16 @@ class _$_Pet with DiagnosticableTreeMixin implements _Pet {
   final String? name;
   @override
   final DateTime? birthDay;
+  final List<int>? _image;
   @override
-  final String? imageBytes;
+  List<int>? get image {
+    final value = _image;
+    if (value == null) return null;
+    if (_image is EqualUnmodifiableListView) return _image;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(value);
+  }
+
   @override
   final SexType? sexType;
   @override
@@ -215,7 +224,7 @@ class _$_Pet with DiagnosticableTreeMixin implements _Pet {
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'Pet(uid: $uid, name: $name, birthDay: $birthDay, imageBytes: $imageBytes, sexType: $sexType, growth: $growth, species: $species, note: $note)';
+    return 'Pet(uid: $uid, name: $name, birthDay: $birthDay, image: $image, sexType: $sexType, growth: $growth, species: $species, note: $note)';
   }
 
   @override
@@ -226,7 +235,7 @@ class _$_Pet with DiagnosticableTreeMixin implements _Pet {
       ..add(DiagnosticsProperty('uid', uid))
       ..add(DiagnosticsProperty('name', name))
       ..add(DiagnosticsProperty('birthDay', birthDay))
-      ..add(DiagnosticsProperty('imageBytes', imageBytes))
+      ..add(DiagnosticsProperty('image', image))
       ..add(DiagnosticsProperty('sexType', sexType))
       ..add(DiagnosticsProperty('growth', growth))
       ..add(DiagnosticsProperty('species', species))
@@ -242,8 +251,7 @@ class _$_Pet with DiagnosticableTreeMixin implements _Pet {
             (identical(other.name, name) || other.name == name) &&
             (identical(other.birthDay, birthDay) ||
                 other.birthDay == birthDay) &&
-            (identical(other.imageBytes, imageBytes) ||
-                other.imageBytes == imageBytes) &&
+            const DeepCollectionEquality().equals(other._image, _image) &&
             (identical(other.sexType, sexType) || other.sexType == sexType) &&
             (identical(other.growth, growth) || other.growth == growth) &&
             (identical(other.species, species) || other.species == species) &&
@@ -252,8 +260,16 @@ class _$_Pet with DiagnosticableTreeMixin implements _Pet {
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(runtimeType, uid, name, birthDay, imageBytes,
-      sexType, growth, species, note);
+  int get hashCode => Object.hash(
+      runtimeType,
+      uid,
+      name,
+      birthDay,
+      const DeepCollectionEquality().hash(_image),
+      sexType,
+      growth,
+      species,
+      note);
 
   @JsonKey(ignore: true)
   @override
@@ -274,7 +290,7 @@ abstract class _Pet implements Pet {
       {final String? uid,
       final String? name,
       final DateTime? birthDay,
-      final String? imageBytes,
+      final List<int>? image,
       final SexType? sexType,
       final GrowthType? growth,
       final AnimalType? species,
@@ -289,7 +305,7 @@ abstract class _Pet implements Pet {
   @override
   DateTime? get birthDay;
   @override
-  String? get imageBytes;
+  List<int>? get image;
   @override
   SexType? get sexType;
   @override

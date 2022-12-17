@@ -12,7 +12,7 @@ _$_Pet _$$_PetFromJson(Map<String, dynamic> json) => _$_Pet(
       birthDay: json['birthDay'] == null
           ? null
           : DateTime.parse(json['birthDay'] as String),
-      imageBytes: json['imageBytes'] as String?,
+      image: (json['image'] as List<dynamic>?)?.map((e) => e as int).toList(),
       sexType: $enumDecodeNullable(_$SexTypeEnumMap, json['sexType']),
       growth: $enumDecodeNullable(_$GrowthTypeEnumMap, json['growth']),
       species: $enumDecodeNullable(_$AnimalTypeEnumMap, json['species']),
@@ -23,7 +23,7 @@ Map<String, dynamic> _$$_PetToJson(_$_Pet instance) => <String, dynamic>{
       'uid': instance.uid,
       'name': instance.name,
       'birthDay': instance.birthDay?.toIso8601String(),
-      'imageBytes': instance.imageBytes,
+      'image': instance.image,
       'sexType': _$SexTypeEnumMap[instance.sexType],
       'growth': _$GrowthTypeEnumMap[instance.growth],
       'species': _$AnimalTypeEnumMap[instance.species],

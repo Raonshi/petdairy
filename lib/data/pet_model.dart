@@ -13,7 +13,7 @@ class Pet with _$Pet {
     String? uid,
     String? name,
     DateTime? birthDay,
-    String? imageBytes,
+    List<int>? image,
     SexType? sexType,
     GrowthType? growth,
     AnimalType? species,

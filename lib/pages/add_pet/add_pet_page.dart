@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:petdiary/data/enums.dart';
@@ -34,22 +35,70 @@ class AddPetPage extends StatelessWidget {
                 child: SingleChildScrollView(
                   child: Column(
                     children: [
-                      InkWell(
-                        onTap: () {},
-                        child: Container(
-                          decoration: BoxDecoration(
-                            border: Border.all(),
-                            borderRadius: BorderRadius.circular(8.0),
+                      Consumer<AddPetProvider>(builder: (context, provider, _) {
+                        return InkWell(
+                          onTap: () {
+                            showDialog(
+                              context: context,
+                              builder: (context) => AlertDialog(
+                                content: Column(
+                                  mainAxisSize: MainAxisSize.min,
+                                  children: [
+                                    Row(
+                                      mainAxisSize: MainAxisSize.min,
+                                      children: [
+                                        Expanded(
+                                          child: InkWell(
+                                            onTap: () => provider.onClickImageFromGallery(),
+                                            child: Column(
+                                              children: const [
+                                                Icon(Icons.image, size: 64.0),
+                                                Text(
+                                                  'Get photo from gallery',
+                                                  textAlign: TextAlign.center,
+                                                ),
+                                              ],
+                                            ),
+                                          ),
+                                        ),
+                                        Expanded(
+                                          child: InkWell(
+                                            onTap: () => provider.onClickImageFromCamera(),
+                                            child: Column(
+                                              children: const [
+                                                Icon(Icons.camera, size: 64.0),
+                                                Text(
+                                                  'Get photo from camera',
+                                                  textAlign: TextAlign.center,
+                                                ),
+                                              ],
+                                            ),
+                                          ),
+                                        )
+                                      ],
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            );
+                          },
+                          child: Container(
+                            decoration: BoxDecoration(
+                              border: Border.all(),
+                              borderRadius: BorderRadius.circular(8.0),
+                            ),
+                            padding: const EdgeInsets.symmetric(vertical: 12.0, horizontal: 36.0),
+                            child: provider.newPet.image == null
+                                ? Column(
+                                    children: const [
+                                      Icon(Icons.image_rounded, size: 96.0, color: Colors.grey),
+                                      Text('Upload image'),
+                                    ],
+                                  )
+                                : Image.memory(Uint8List.fromList(provider.newPet.image ?? [])),
                           ),
-                          padding: const EdgeInsets.symmetric(vertical: 12.0, horizontal: 36.0),
-                          child: Column(
-                            children: const [
-                              Icon(Icons.image_rounded, size: 96.0, color: Colors.grey),
-                              Text('Upload image'),
-                            ],
-                          ),
-                        ),
-                      ),
+                        );
+                      }),
                       const SizedBox(height: 24.0),
 
                       // Pet Name

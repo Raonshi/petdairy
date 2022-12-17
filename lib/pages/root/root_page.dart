@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:petdiary/data/pet_model.dart';
@@ -41,14 +42,16 @@ class RootPage extends StatelessWidget {
                 final Pet pet = provider.pets[index];
                 return ListTile(
                   onTap: () => context.go('/detail?id=${pet.uid}'),
-                  leading: Container(
-                    color: Colors.grey,
-                    width: 50.0,
-                    height: 50.0,
-                    child: const Center(
-                      child: Text('Pet Image'),
-                    ),
-                  ),
+                  leading: pet.image == null
+                      ? Container(
+                          color: Colors.grey,
+                          width: 50.0,
+                          height: 50.0,
+                          child: const Center(
+                            child: Text('Pet Image'),
+                          ),
+                        )
+                      : Image.memory(Uint8List.fromList(pet.image ?? [])),
                   title: Text(pet.name ?? ''),
                   subtitle: Text(pet.species?.string ?? ''),
                 );
