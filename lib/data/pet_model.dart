@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:petdiary/data/enums.dart';
 
@@ -9,11 +10,12 @@ class Pet with _$Pet {
   // ignore: invalid_annotation_target
   @JsonSerializable(explicitToJson: true)
   factory Pet({
-    required String name,
+    String? name,
     DateTime? birthDay,
-    bool? isMale,
+    String? imageBytes,
+    SexType? sexType,
     GrowthType? growth,
-    AnimalType? type,
+    AnimalType? species,
     String? note,
   }) = _Pet;
 

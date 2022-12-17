@@ -7,29 +7,38 @@ part of 'pet_model.dart';
 // **************************************************************************
 
 _$_Pet _$$_PetFromJson(Map<String, dynamic> json) => _$_Pet(
-      name: json['name'] as String,
+      name: json['name'] as String?,
       birthDay: json['birthDay'] == null
           ? null
           : DateTime.parse(json['birthDay'] as String),
-      isMale: json['isMale'] as bool?,
+      imageBytes: json['imageBytes'] as String?,
+      sexType: $enumDecodeNullable(_$SexTypeEnumMap, json['sexType']),
       growth: $enumDecodeNullable(_$GrowthTypeEnumMap, json['growth']),
-      type: $enumDecodeNullable(_$AnimalTypeEnumMap, json['type']),
+      species: $enumDecodeNullable(_$AnimalTypeEnumMap, json['species']),
       note: json['note'] as String?,
     );
 
 Map<String, dynamic> _$$_PetToJson(_$_Pet instance) => <String, dynamic>{
       'name': instance.name,
       'birthDay': instance.birthDay?.toIso8601String(),
-      'isMale': instance.isMale,
+      'imageBytes': instance.imageBytes,
+      'sexType': _$SexTypeEnumMap[instance.sexType],
       'growth': _$GrowthTypeEnumMap[instance.growth],
-      'type': _$AnimalTypeEnumMap[instance.type],
+      'species': _$AnimalTypeEnumMap[instance.species],
       'note': instance.note,
     };
+
+const _$SexTypeEnumMap = {
+  SexType.male: 'male',
+  SexType.female: 'female',
+  SexType.unknown: 'unknown',
+};
 
 const _$GrowthTypeEnumMap = {
   GrowthType.baby: 'baby',
   GrowthType.juvenile: 'juvenile',
   GrowthType.adult: 'adult',
+  GrowthType.unknown: 'unknown',
 };
 
 const _$AnimalTypeEnumMap = {
@@ -37,5 +46,6 @@ const _$AnimalTypeEnumMap = {
   AnimalType.fish: 'fish',
   AnimalType.bird: 'bird',
   AnimalType.reptile: 'reptile',
+  AnimalType.amphibians: 'amphibians',
   AnimalType.insect: 'insect',
 };

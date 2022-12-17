@@ -46,6 +46,9 @@ dependencies:
   freezed_annotation: ^2.2.0
   json_annotation: ^4.7.0
   logger: ^1.1.0
+  image_picker: ^0.8.6
+  uuid: ^3.0.7
+  intl: ^0.18.0
 
   # Local Storage
   shared_preferences: ^2.0.15

@@ -20,11 +20,12 @@ Pet _$PetFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$Pet {
-  String get name => throw _privateConstructorUsedError;
+  String? get name => throw _privateConstructorUsedError;
   DateTime? get birthDay => throw _privateConstructorUsedError;
-  bool? get isMale => throw _privateConstructorUsedError;
+  String? get imageBytes => throw _privateConstructorUsedError;
+  SexType? get sexType => throw _privateConstructorUsedError;
   GrowthType? get growth => throw _privateConstructorUsedError;
-  AnimalType? get type => throw _privateConstructorUsedError;
+  AnimalType? get species => throw _privateConstructorUsedError;
   String? get note => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -38,11 +39,12 @@ abstract class $PetCopyWith<$Res> {
       _$PetCopyWithImpl<$Res, Pet>;
   @useResult
   $Res call(
-      {String name,
+      {String? name,
       DateTime? birthDay,
-      bool? isMale,
+      String? imageBytes,
+      SexType? sexType,
       GrowthType? growth,
-      AnimalType? type,
+      AnimalType? species,
       String? note});
 }
 
@@ -58,33 +60,38 @@ class _$PetCopyWithImpl<$Res, $Val extends Pet> implements $PetCopyWith<$Res> {
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? name = null,
+    Object? name = freezed,
     Object? birthDay = freezed,
-    Object? isMale = freezed,
+    Object? imageBytes = freezed,
+    Object? sexType = freezed,
     Object? growth = freezed,
-    Object? type = freezed,
+    Object? species = freezed,
     Object? note = freezed,
   }) {
     return _then(_value.copyWith(
-      name: null == name
+      name: freezed == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
       birthDay: freezed == birthDay
           ? _value.birthDay
           : birthDay // ignore: cast_nullable_to_non_nullable
               as DateTime?,
-      isMale: freezed == isMale
-          ? _value.isMale
-          : isMale // ignore: cast_nullable_to_non_nullable
-              as bool?,
+      imageBytes: freezed == imageBytes
+          ? _value.imageBytes
+          : imageBytes // ignore: cast_nullable_to_non_nullable
+              as String?,
+      sexType: freezed == sexType
+          ? _value.sexType
+          : sexType // ignore: cast_nullable_to_non_nullable
+              as SexType?,
       growth: freezed == growth
           ? _value.growth
           : growth // ignore: cast_nullable_to_non_nullable
               as GrowthType?,
-      type: freezed == type
-          ? _value.type
-          : type // ignore: cast_nullable_to_non_nullable
+      species: freezed == species
+          ? _value.species
+          : species // ignore: cast_nullable_to_non_nullable
               as AnimalType?,
       note: freezed == note
           ? _value.note
@@ -101,11 +108,12 @@ abstract class _$$_PetCopyWith<$Res> implements $PetCopyWith<$Res> {
   @override
   @useResult
   $Res call(
-      {String name,
+      {String? name,
       DateTime? birthDay,
-      bool? isMale,
+      String? imageBytes,
+      SexType? sexType,
       GrowthType? growth,
-      AnimalType? type,
+      AnimalType? species,
       String? note});
 }
 
@@ -118,33 +126,38 @@ class __$$_PetCopyWithImpl<$Res> extends _$PetCopyWithImpl<$Res, _$_Pet>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? name = null,
+    Object? name = freezed,
     Object? birthDay = freezed,
-    Object? isMale = freezed,
+    Object? imageBytes = freezed,
+    Object? sexType = freezed,
     Object? growth = freezed,
-    Object? type = freezed,
+    Object? species = freezed,
     Object? note = freezed,
   }) {
     return _then(_$_Pet(
-      name: null == name
+      name: freezed == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
       birthDay: freezed == birthDay
           ? _value.birthDay
           : birthDay // ignore: cast_nullable_to_non_nullable
               as DateTime?,
-      isMale: freezed == isMale
-          ? _value.isMale
-          : isMale // ignore: cast_nullable_to_non_nullable
-              as bool?,
+      imageBytes: freezed == imageBytes
+          ? _value.imageBytes
+          : imageBytes // ignore: cast_nullable_to_non_nullable
+              as String?,
+      sexType: freezed == sexType
+          ? _value.sexType
+          : sexType // ignore: cast_nullable_to_non_nullable
+              as SexType?,
       growth: freezed == growth
           ? _value.growth
           : growth // ignore: cast_nullable_to_non_nullable
               as GrowthType?,
-      type: freezed == type
-          ? _value.type
-          : type // ignore: cast_nullable_to_non_nullable
+      species: freezed == species
+          ? _value.species
+          : species // ignore: cast_nullable_to_non_nullable
               as AnimalType?,
       note: freezed == note
           ? _value.note
@@ -157,33 +170,50 @@ class __$$_PetCopyWithImpl<$Res> extends _$PetCopyWithImpl<$Res, _$_Pet>
 /// @nodoc
 
 @JsonSerializable(explicitToJson: true)
-class _$_Pet implements _Pet {
+class _$_Pet with DiagnosticableTreeMixin implements _Pet {
   _$_Pet(
-      {required this.name,
+      {this.name,
       this.birthDay,
-      this.isMale,
+      this.imageBytes,
+      this.sexType,
       this.growth,
-      this.type,
+      this.species,
       this.note});
 
   factory _$_Pet.fromJson(Map<String, dynamic> json) => _$$_PetFromJson(json);
 
   @override
-  final String name;
+  final String? name;
   @override
   final DateTime? birthDay;
   @override
-  final bool? isMale;
+  final String? imageBytes;
+  @override
+  final SexType? sexType;
   @override
   final GrowthType? growth;
   @override
-  final AnimalType? type;
+  final AnimalType? species;
   @override
   final String? note;
 
   @override
-  String toString() {
-    return 'Pet(name: $name, birthDay: $birthDay, isMale: $isMale, growth: $growth, type: $type, note: $note)';
+  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
+    return 'Pet(name: $name, birthDay: $birthDay, imageBytes: $imageBytes, sexType: $sexType, growth: $growth, species: $species, note: $note)';
+  }
+
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties
+      ..add(DiagnosticsProperty('type', 'Pet'))
+      ..add(DiagnosticsProperty('name', name))
+      ..add(DiagnosticsProperty('birthDay', birthDay))
+      ..add(DiagnosticsProperty('imageBytes', imageBytes))
+      ..add(DiagnosticsProperty('sexType', sexType))
+      ..add(DiagnosticsProperty('growth', growth))
+      ..add(DiagnosticsProperty('species', species))
+      ..add(DiagnosticsProperty('note', note));
   }
 
   @override
@@ -194,16 +224,18 @@ class _$_Pet implements _Pet {
             (identical(other.name, name) || other.name == name) &&
             (identical(other.birthDay, birthDay) ||
                 other.birthDay == birthDay) &&
-            (identical(other.isMale, isMale) || other.isMale == isMale) &&
+            (identical(other.imageBytes, imageBytes) ||
+                other.imageBytes == imageBytes) &&
+            (identical(other.sexType, sexType) || other.sexType == sexType) &&
             (identical(other.growth, growth) || other.growth == growth) &&
-            (identical(other.type, type) || other.type == type) &&
+            (identical(other.species, species) || other.species == species) &&
             (identical(other.note, note) || other.note == note));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, name, birthDay, isMale, growth, type, note);
+  int get hashCode => Object.hash(
+      runtimeType, name, birthDay, imageBytes, sexType, growth, species, note);
 
   @JsonKey(ignore: true)
   @override
@@ -221,25 +253,28 @@ class _$_Pet implements _Pet {
 
 abstract class _Pet implements Pet {
   factory _Pet(
-      {required final String name,
+      {final String? name,
       final DateTime? birthDay,
-      final bool? isMale,
+      final String? imageBytes,
+      final SexType? sexType,
       final GrowthType? growth,
-      final AnimalType? type,
+      final AnimalType? species,
       final String? note}) = _$_Pet;
 
   factory _Pet.fromJson(Map<String, dynamic> json) = _$_Pet.fromJson;
 
   @override
-  String get name;
+  String? get name;
   @override
   DateTime? get birthDay;
   @override
-  bool? get isMale;
+  String? get imageBytes;
+  @override
+  SexType? get sexType;
   @override
   GrowthType? get growth;
   @override
-  AnimalType? get type;
+  AnimalType? get species;
   @override
   String? get note;
   @override
