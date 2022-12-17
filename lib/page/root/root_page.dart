@@ -2,7 +2,8 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:petdiary/data/pet_model.dart';
-import 'package:petdiary/pages/root/root_provider.dart';
+import 'package:petdiary/page/root/root_provider.dart';
+import 'package:petdiary/style/theme.dart';
 import 'package:provider/provider.dart';
 
 class RootPage extends StatelessWidget {
@@ -15,11 +16,15 @@ class RootPage extends StatelessWidget {
       builder: (context, _) {
         return Scaffold(
           appBar: AppBar(
-            title: const Text('Pet Diary'),
+            backgroundColor: context.colors.primary,
+            title: Text(
+              'Pet Diary',
+              style: context.texts.titleLarge!.copyWith(color: context.colors.onPrimary),
+            ),
             actions: [
               IconButton(
                 onPressed: () => context.go('/setting'),
-                icon: const Icon(Icons.settings),
+                icon: Icon(Icons.settings, color: context.colors.onPrimary),
               ),
             ],
           ),
@@ -28,9 +33,15 @@ class RootPage extends StatelessWidget {
               return Center(
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
-                  children: const [
-                    Icon(Icons.error_outline_rounded, size: 64.0),
-                    Text('동물 정보가 등록되지 않았습니다.'),
+                  children: [
+                    Icon(Icons.error_outline_rounded, size: 64.0, color: context.theme.disabledColor),
+                    Text(
+                      '동물 정보가 등록되지 않았습니다.',
+                      style: context.texts.bodyMedium!.copyWith(
+                        fontWeight: FontWeight.bold,
+                        color: context.theme.disabledColor,
+                      ),
+                    ),
                   ],
                 ),
               );
@@ -44,16 +55,29 @@ class RootPage extends StatelessWidget {
                   onTap: () => context.go('/detail?id=${pet.uid}'),
                   leading: pet.image == null
                       ? Container(
-                          color: Colors.grey,
+                          decoration: BoxDecoration(
+                            color: context.colors.secondary,
+                            borderRadius: BorderRadius.circular(4.0),
+                          ),
                           width: 50.0,
                           height: 50.0,
-                          child: const Center(
-                            child: Text('Pet Image'),
+                          child: Center(
+                            child: Icon(
+                              Icons.image_not_supported_rounded,
+                              color: context.colors.onSecondary,
+                            ),
                           ),
                         )
-                      : Image.memory(Uint8List.fromList(pet.image ?? [])),
-                  title: Text(pet.name ?? ''),
-                  subtitle: Text(pet.species?.string ?? ''),
+                      : ClipRRect(
+                          borderRadius: BorderRadius.circular(4.0),
+                          child: Image.memory(
+                            Uint8List.fromList(pet.image ?? []),
+                            width: 50.0,
+                            height: 50.0,
+                          ),
+                        ),
+                  title: Text(pet.name ?? '', style: context.texts.bodyLarge),
+                  subtitle: Text(pet.species?.string ?? '', style: context.texts.bodySmall),
                 );
               },
               separatorBuilder: (context, index) => const Divider(),

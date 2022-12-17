@@ -4,7 +4,7 @@ import 'package:image_cropper/image_cropper.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:petdiary/data/enums.dart';
 import 'package:petdiary/data/pet_model.dart';
-import 'package:petdiary/repositories/repository.dart';
+import 'package:petdiary/repository/repository.dart';
 import 'package:uuid/uuid.dart';
 
 class AddPetProvider extends ChangeNotifier {

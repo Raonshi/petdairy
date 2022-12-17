@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:petdiary/data/pet_model.dart';
-import 'package:petdiary/repositories/repository.dart';
+import 'package:petdiary/repository/repository.dart';
 
 class RootProvider extends ChangeNotifier {
   final Repository _repository = Repository();
