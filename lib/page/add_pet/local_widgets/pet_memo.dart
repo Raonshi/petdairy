@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
+import 'package:petdiary/style/theme.dart';
 
 class PetMemo extends StatefulWidget {
   const PetMemo({super.key, required this.onChanged});
@@ -25,9 +26,12 @@ class _PetMemoState extends State<PetMemo> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const Text('메모'),
+        Text('메모', style: context.texts.labelMedium),
         TextFormField(
           controller: _textEditingController,
+          minLines: 10,
+          maxLines: null,
+          style: context.texts.bodyMedium,
           onChanged: widget.onChanged,
           decoration: InputDecoration(
             isCollapsed: true,
@@ -36,11 +40,12 @@ class _PetMemoState extends State<PetMemo> {
             suffixIcon: Padding(
               padding: const EdgeInsets.only(right: 8.0),
               child: InkWell(
-                  onTap: () {
-                    _textEditingController.clear();
-                    widget.onChanged(null);
-                  },
-                  child: const Icon(Icons.close, size: 16.0)),
+                onTap: () {
+                  _textEditingController.clear();
+                  widget.onChanged(null);
+                },
+                child: const Icon(Icons.close, size: 16.0),
+              ),
             ),
             suffixIconConstraints: const BoxConstraints(),
           ),

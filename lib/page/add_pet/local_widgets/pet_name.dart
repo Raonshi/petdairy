@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
+import 'package:petdiary/style/theme.dart';
 
 class PetName extends StatefulWidget {
   const PetName({super.key, required this.onChanged});
@@ -25,10 +26,11 @@ class _PetNameState extends State<PetName> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const Text('이름'),
+        Text('이름', style: context.texts.labelMedium),
         TextFormField(
           controller: _textEditingController,
           onChanged: widget.onChanged,
+          style: context.texts.bodyMedium,
           decoration: InputDecoration(
             isCollapsed: true,
             contentPadding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 12.0),

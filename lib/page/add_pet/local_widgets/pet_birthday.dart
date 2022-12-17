@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:petdiary/style/theme.dart';
 
 class PetBirthday extends StatefulWidget {
   const PetBirthday({super.key, required this.onChanged});
@@ -24,10 +25,11 @@ class _PetBirthdayState extends State<PetBirthday> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const Text('태어난 날짜'),
+        Text('태어난 날짜', style: context.texts.labelMedium),
         TextFormField(
           controller: _textEditingController,
           readOnly: true,
+          style: context.texts.bodyMedium,
           onTap: () async {
             DateTime date = await showDialog(
               context: context,

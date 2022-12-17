@@ -9,6 +9,7 @@ import 'package:petdiary/page/add_pet/local_widgets/pet_memo.dart';
 import 'package:petdiary/page/add_pet/local_widgets/pet_name.dart';
 import 'package:petdiary/page/add_pet/local_widgets/pet_sexual.dart';
 import 'package:petdiary/page/add_pet/local_widgets/pet_species.dart';
+import 'package:petdiary/style/theme.dart';
 import 'package:provider/provider.dart';
 
 class AddPetPage extends StatelessWidget {
@@ -23,12 +24,12 @@ class AddPetPage extends StatelessWidget {
           builder: (context, _) {
             return Scaffold(
               appBar: AppBar(
+                backgroundColor: context.colors.primary,
                 leading: IconButton(
                   onPressed: () => context.go('/'),
                   iconSize: 32.0,
-                  icon: const Icon(Icons.chevron_left_rounded),
+                  icon: Icon(Icons.chevron_left_rounded, color: context.colors.onPrimary),
                 ),
-                title: const Text('Add New Pet'),
               ),
               body: Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 12.0),
@@ -82,21 +83,32 @@ class AddPetPage extends StatelessWidget {
                               ),
                             );
                           },
-                          child: Container(
-                            decoration: BoxDecoration(
-                              border: Border.all(),
-                              borderRadius: BorderRadius.circular(8.0),
-                            ),
-                            padding: const EdgeInsets.symmetric(vertical: 12.0, horizontal: 36.0),
-                            child: provider.newPet.image == null
-                                ? Column(
-                                    children: const [
-                                      Icon(Icons.image_rounded, size: 96.0, color: Colors.grey),
-                                      Text('Upload image'),
+                          child: provider.newPet.image == null
+                              ? Container(
+                                  decoration: BoxDecoration(
+                                    color: context.colors.secondary,
+                                    borderRadius: BorderRadius.circular(8.0),
+                                  ),
+                                  width: MediaQuery.of(context).size.width,
+                                  height: MediaQuery.of(context).size.width,
+                                  child: Column(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      Icon(Icons.image_rounded, size: 96.0, color: context.colors.onSecondary),
+                                      Text(
+                                        'Upload image',
+                                        style: context.texts.bodyLarge!.copyWith(
+                                          color: context.colors.onSecondary,
+                                          fontWeight: FontWeight.bold,
+                                        ),
+                                      ),
                                     ],
-                                  )
-                                : Image.memory(Uint8List.fromList(provider.newPet.image ?? [])),
-                          ),
+                                  ),
+                                )
+                              : ClipRRect(
+                                  borderRadius: BorderRadius.circular(8.0),
+                                  child: Image.memory(Uint8List.fromList(provider.newPet.image ?? [])),
+                                ),
                         );
                       }),
                       const SizedBox(height: 24.0),

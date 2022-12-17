@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:petdiary/data/enums.dart';
+import 'package:petdiary/style/theme.dart';
 
 class PetSpecies extends StatefulWidget {
   const PetSpecies({
@@ -29,10 +30,11 @@ class _PetSpeciesState extends State<PetSpecies> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-                            const Text('종 유형'),
+        Text('종 유형', style: context.texts.labelMedium),
         TextFormField(
           controller: _textEditingController,
           readOnly: true,
+          style: context.texts.bodyMedium,
           onTap: () async {
             AnimalType type = await showDialog(
               context: context,
