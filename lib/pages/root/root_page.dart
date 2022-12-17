@@ -40,7 +40,7 @@ class RootPage extends StatelessWidget {
               itemBuilder: (context, index) {
                 final Pet pet = provider.pets[index];
                 return ListTile(
-                  onTap: () => context.go('/detail?id=test0'),
+                  onTap: () => context.go('/detail?id=${pet.uid}'),
                   leading: Container(
                     color: Colors.grey,
                     width: 50.0,

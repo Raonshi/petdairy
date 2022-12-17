@@ -23,4 +23,9 @@ class Repository {
       return Pet.fromJson(json);
     }).toList();
   }
+
+  Future<Pet> getPet(String uid) async {
+    List<Pet> pets = await getAllPets();
+    return pets.firstWhere((element) => element.uid == uid);
+  }
 }
