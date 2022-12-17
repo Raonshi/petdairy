@@ -7,6 +7,7 @@ part of 'pet_model.dart';
 // **************************************************************************
 
 _$_Pet _$$_PetFromJson(Map<String, dynamic> json) => _$_Pet(
+      uid: json['uid'] as String?,
       name: json['name'] as String?,
       birthDay: json['birthDay'] == null
           ? null
@@ -19,6 +20,7 @@ _$_Pet _$$_PetFromJson(Map<String, dynamic> json) => _$_Pet(
     );
 
 Map<String, dynamic> _$$_PetToJson(_$_Pet instance) => <String, dynamic>{
+      'uid': instance.uid,
       'name': instance.name,
       'birthDay': instance.birthDay?.toIso8601String(),
       'imageBytes': instance.imageBytes,
@@ -48,4 +50,5 @@ const _$AnimalTypeEnumMap = {
   AnimalType.reptile: 'reptile',
   AnimalType.amphibians: 'amphibians',
   AnimalType.insect: 'insect',
+  AnimalType.unknown: 'unknown',
 };

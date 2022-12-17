@@ -13,5 +13,6 @@ class RootProvider extends ChangeNotifier {
 
   void init() async {
     pets = await _repository.getAllPets();
+    notifyListeners();
   }
 }

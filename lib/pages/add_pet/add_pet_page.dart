@@ -100,7 +100,13 @@ class AddPetPage extends StatelessWidget {
                       Consumer<AddPetProvider>(builder: (context, provider, _) {
                         return ElevatedButton(
                           style: ElevatedButton.styleFrom(padding: EdgeInsets.zero),
-                          onPressed: provider.createPet,
+                          onPressed: () {
+                            provider.createPet().then((value) {
+                              if (value) {
+                                context.go('/');
+                              }
+                            });
+                          },
                           child: const Padding(
                             padding: EdgeInsets.symmetric(vertical: 10.0, horizontal: 64.0),
                             child: Text('추가'),

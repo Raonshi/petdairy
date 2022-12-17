@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:petdiary/data/enums.dart';
 import 'package:petdiary/data/pet_model.dart';
 import 'package:petdiary/repositories/repository.dart';
+import 'package:uuid/uuid.dart';
 
 class AddPetProvider extends ChangeNotifier {
   final Repository _repository = Repository();
@@ -41,7 +42,9 @@ class AddPetProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  void createPet() async {
-    await _repository.createPet(newPet);
+  Future<bool> createPet() async {
+    final String uid = const Uuid().v1();
+    newPet = newPet.copyWith(uid: uid);
+    return await _repository.createPet(newPet);
   }
 }

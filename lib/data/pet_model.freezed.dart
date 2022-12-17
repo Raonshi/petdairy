@@ -20,6 +20,7 @@ Pet _$PetFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$Pet {
+  String? get uid => throw _privateConstructorUsedError;
   String? get name => throw _privateConstructorUsedError;
   DateTime? get birthDay => throw _privateConstructorUsedError;
   String? get imageBytes => throw _privateConstructorUsedError;
@@ -39,7 +40,8 @@ abstract class $PetCopyWith<$Res> {
       _$PetCopyWithImpl<$Res, Pet>;
   @useResult
   $Res call(
-      {String? name,
+      {String? uid,
+      String? name,
       DateTime? birthDay,
       String? imageBytes,
       SexType? sexType,
@@ -60,6 +62,7 @@ class _$PetCopyWithImpl<$Res, $Val extends Pet> implements $PetCopyWith<$Res> {
   @pragma('vm:prefer-inline')
   @override
   $Res call({
+    Object? uid = freezed,
     Object? name = freezed,
     Object? birthDay = freezed,
     Object? imageBytes = freezed,
@@ -69,6 +72,10 @@ class _$PetCopyWithImpl<$Res, $Val extends Pet> implements $PetCopyWith<$Res> {
     Object? note = freezed,
   }) {
     return _then(_value.copyWith(
+      uid: freezed == uid
+          ? _value.uid
+          : uid // ignore: cast_nullable_to_non_nullable
+              as String?,
       name: freezed == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
@@ -108,7 +115,8 @@ abstract class _$$_PetCopyWith<$Res> implements $PetCopyWith<$Res> {
   @override
   @useResult
   $Res call(
-      {String? name,
+      {String? uid,
+      String? name,
       DateTime? birthDay,
       String? imageBytes,
       SexType? sexType,
@@ -126,6 +134,7 @@ class __$$_PetCopyWithImpl<$Res> extends _$PetCopyWithImpl<$Res, _$_Pet>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
+    Object? uid = freezed,
     Object? name = freezed,
     Object? birthDay = freezed,
     Object? imageBytes = freezed,
@@ -135,6 +144,10 @@ class __$$_PetCopyWithImpl<$Res> extends _$PetCopyWithImpl<$Res, _$_Pet>
     Object? note = freezed,
   }) {
     return _then(_$_Pet(
+      uid: freezed == uid
+          ? _value.uid
+          : uid // ignore: cast_nullable_to_non_nullable
+              as String?,
       name: freezed == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
@@ -172,7 +185,8 @@ class __$$_PetCopyWithImpl<$Res> extends _$PetCopyWithImpl<$Res, _$_Pet>
 @JsonSerializable(explicitToJson: true)
 class _$_Pet with DiagnosticableTreeMixin implements _Pet {
   _$_Pet(
-      {this.name,
+      {this.uid,
+      this.name,
       this.birthDay,
       this.imageBytes,
       this.sexType,
@@ -182,6 +196,8 @@ class _$_Pet with DiagnosticableTreeMixin implements _Pet {
 
   factory _$_Pet.fromJson(Map<String, dynamic> json) => _$$_PetFromJson(json);
 
+  @override
+  final String? uid;
   @override
   final String? name;
   @override
@@ -199,7 +215,7 @@ class _$_Pet with DiagnosticableTreeMixin implements _Pet {
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'Pet(name: $name, birthDay: $birthDay, imageBytes: $imageBytes, sexType: $sexType, growth: $growth, species: $species, note: $note)';
+    return 'Pet(uid: $uid, name: $name, birthDay: $birthDay, imageBytes: $imageBytes, sexType: $sexType, growth: $growth, species: $species, note: $note)';
   }
 
   @override
@@ -207,6 +223,7 @@ class _$_Pet with DiagnosticableTreeMixin implements _Pet {
     super.debugFillProperties(properties);
     properties
       ..add(DiagnosticsProperty('type', 'Pet'))
+      ..add(DiagnosticsProperty('uid', uid))
       ..add(DiagnosticsProperty('name', name))
       ..add(DiagnosticsProperty('birthDay', birthDay))
       ..add(DiagnosticsProperty('imageBytes', imageBytes))
@@ -221,6 +238,7 @@ class _$_Pet with DiagnosticableTreeMixin implements _Pet {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_Pet &&
+            (identical(other.uid, uid) || other.uid == uid) &&
             (identical(other.name, name) || other.name == name) &&
             (identical(other.birthDay, birthDay) ||
                 other.birthDay == birthDay) &&
@@ -234,8 +252,8 @@ class _$_Pet with DiagnosticableTreeMixin implements _Pet {
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(
-      runtimeType, name, birthDay, imageBytes, sexType, growth, species, note);
+  int get hashCode => Object.hash(runtimeType, uid, name, birthDay, imageBytes,
+      sexType, growth, species, note);
 
   @JsonKey(ignore: true)
   @override
@@ -253,7 +271,8 @@ class _$_Pet with DiagnosticableTreeMixin implements _Pet {
 
 abstract class _Pet implements Pet {
   factory _Pet(
-      {final String? name,
+      {final String? uid,
+      final String? name,
       final DateTime? birthDay,
       final String? imageBytes,
       final SexType? sexType,
@@ -263,6 +282,8 @@ abstract class _Pet implements Pet {
 
   factory _Pet.fromJson(Map<String, dynamic> json) = _$_Pet.fromJson;
 
+  @override
+  String? get uid;
   @override
   String? get name;
   @override

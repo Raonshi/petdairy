@@ -9,7 +9,7 @@ class Repository {
     final SharedPreferences localStorage = await SharedPreferences.getInstance();
     List<String> petLists = localStorage.getStringList(LocalStorageKey.petList) ?? [];
 
-    petLists.add(pet.toJson().toString());
+    petLists.add(jsonEncode(pet.toJson()));
     localStorage.setStringList(LocalStorageKey.petList, petLists);
     return true;
   }

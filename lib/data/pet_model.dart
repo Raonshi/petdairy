@@ -10,6 +10,7 @@ class Pet with _$Pet {
   // ignore: invalid_annotation_target
   @JsonSerializable(explicitToJson: true)
   factory Pet({
+    String? uid,
     String? name,
     DateTime? birthDay,
     String? imageBytes,
