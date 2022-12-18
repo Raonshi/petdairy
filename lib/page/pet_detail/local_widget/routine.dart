@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:petdiary/config.dart';
+import 'package:petdiary/data/enums.dart';
 import 'package:petdiary/data/routine_model.dart';
 import 'package:petdiary/page/pet_detail/pet_detail_provider.dart';
 import 'package:petdiary/style/theme.dart';
 import 'package:petdiary/tools.dart';
+import 'package:petdiary/widgets/custom_input_field.dart';
+import 'package:petdiary/widgets/custom_select_input_field.dart';
 
 class PetRootine extends StatelessWidget {
   const PetRootine({super.key, required this.routines, required this.provider});
@@ -66,10 +69,14 @@ class PetRootine extends StatelessWidget {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: List.generate(routines.length, (index) {
-                final Routine routine = routines[index];
+                Routine routine = routines[index];
                 return _RoutineCard(
                   routine: routine,
                   backgroundColor: context.colors.secondary,
+                  onClickCard: (value) {
+                    routine = routine.copyWith(isEnable: value);
+                    lgr.d(routine);
+                  },
                   onClickEdit: () {
                     showDialog(
                       context: context,
@@ -77,8 +84,15 @@ class PetRootine extends StatelessWidget {
                         title: Text('${routine.dayOfWeek}요일 루틴 수정'),
                         content: Column(
                           mainAxisSize: MainAxisSize.min,
-                          children: const [
-                            Text('루틴 종류 선택'),
+                          children: [
+                            CustomSelectInputField<RoutineType>(
+                              initialText: routine.type?.string ?? RoutineType.etc.string,
+                              options: RoutineType.values,
+                              onChanged: (value) {
+                                routine = routine.copyWith(type: value);
+                                lgr.d(routine);
+                              },
+                            ),
                             Text('루틴 상세 내용'),
                           ],
                         ),
@@ -153,12 +167,14 @@ class _RoutineCard extends StatefulWidget {
   const _RoutineCard({
     required this.routine,
     required this.onClickEdit,
+    required this.onClickCard,
     this.backgroundColor = Colors.grey,
   });
 
   final Routine routine;
   final Color backgroundColor;
   final VoidCallback onClickEdit;
+  final ValueChanged<bool> onClickCard;
 
   @override
   State<_RoutineCard> createState() => __RoutineCardState();
@@ -175,6 +191,7 @@ class __RoutineCardState extends State<_RoutineCard> {
             setState(() {
               isEnable = !isEnable;
             });
+            widget.onClickCard(isEnable);
           },
           child: Container(
             padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 12.0),
