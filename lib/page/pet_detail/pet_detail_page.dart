@@ -4,6 +4,7 @@ import 'package:go_router/go_router.dart';
 import 'package:intl/intl.dart';
 import 'package:petdiary/config.dart';
 import 'package:petdiary/data/enums.dart';
+import 'package:petdiary/page/pet_detail/local_widget/routine.dart';
 import 'package:petdiary/page/pet_detail/pet_detail_provider.dart';
 import 'package:petdiary/style/theme.dart';
 import 'package:petdiary/tools.dart';
@@ -163,7 +164,43 @@ class PetDetailPage extends StatelessWidget {
                             ),
                           ),
                           InkWell(
-                            onTap: () {},
+                            onTap: () => provider.downloadImage().then((value) {
+                              if (value) {
+                                showSnackbar(
+                                  context,
+                                  Row(
+                                    children: [
+                                      Icon(Icons.info_outline_rounded, color: context.colors.onPrimary),
+                                      const SizedBox(width: 8.0),
+                                      Text(
+                                        '사진을 성공적으로 다운로드했습니다.',
+                                        style: context.texts.bodyMedium!.copyWith(
+                                          fontWeight: FontWeight.bold,
+                                          color: context.colors.onPrimary,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                );
+                              } else {
+                                showSnackbar(
+                                  context,
+                                  Row(
+                                    children: [
+                                      Icon(Icons.info_outline_rounded, color: context.colors.onPrimary),
+                                      const SizedBox(width: 8.0),
+                                      Text(
+                                        '사진 다운로드를 실패했습니다.',
+                                        style: context.texts.bodyMedium!.copyWith(
+                                          fontWeight: FontWeight.bold,
+                                          color: context.colors.onPrimary,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                );
+                              }
+                            }),
                             child: Text(
                               'Download',
                               style: context.texts.bodyLarge!.copyWith(
@@ -253,6 +290,12 @@ class PetDetailPage extends StatelessWidget {
                           ),
                         ],
                       ),
+                    ),
+                    const Divider(),
+                    PetRootine(
+                      onChangedNoti: (value) {
+                        lgr.d(value);
+                      },
                     ),
                     const Divider(),
                   ],

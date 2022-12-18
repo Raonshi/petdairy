@@ -1,7 +1,13 @@
+import 'dart:io';
+
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:gallery_saver/gallery_saver.dart';
 import 'package:image_cropper/image_cropper.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:intl/intl.dart';
+import 'package:path_provider/path_provider.dart';
+import 'package:petdiary/config.dart';
 import 'package:petdiary/data/pet_model.dart';
 import 'package:petdiary/repository/repository.dart';
 
@@ -72,6 +78,20 @@ class PetDetailProvider extends ChangeNotifier {
       final Uint8List bytes = await croppedFile.readAsBytes();
       pet = pet!.copyWith(image: bytes);
     }
+  }
+
+  Future<bool> downloadImage() async {
+    Directory tempDir = await getTemporaryDirectory();
+    final bool isDirExist = await tempDir.exists();
+    if (!isDirExist) {
+      await tempDir.create();
+    }
+    File file =
+        await File('${tempDir.path}/${pet?.name ?? 'pet'}_${DateFormat('yyyyMMddhhmmss').format(DateTime.now())}.jpeg')
+            .create();
+
+    file = await file.writeAsBytes(pet?.image ?? []);
+    return await GallerySaver.saveImage(file.path, toDcim: true) ?? false;
   }
 
   void updatePet() async {
