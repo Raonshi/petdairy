@@ -51,33 +51,46 @@ class RootPage extends StatelessWidget {
               itemCount: provider.pets.length,
               itemBuilder: (context, index) {
                 final Pet pet = provider.pets[index];
-                return ListTile(
+                return InkWell(
                   onTap: () => context.go('/detail?id=${pet.uid}'),
-                  leading: pet.image == null
-                      ? Container(
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 12.0),
+                    child: Row(
+                      children: [
+                        Container(
                           decoration: BoxDecoration(
                             color: context.colors.secondary,
-                            borderRadius: BorderRadius.circular(4.0),
+                            borderRadius: BorderRadius.circular(8.0),
                           ),
-                          width: 50.0,
-                          height: 50.0,
-                          child: Center(
-                            child: Icon(
-                              Icons.image_not_supported_rounded,
-                              color: context.colors.onSecondary,
-                            ),
-                          ),
-                        )
-                      : ClipRRect(
-                          borderRadius: BorderRadius.circular(4.0),
-                          child: Image.memory(
-                            Uint8List.fromList(pet.image ?? []),
-                            width: 50.0,
-                            height: 50.0,
-                          ),
+                          width: 64.0,
+                          height: 64.0,
+                          child: pet.image == null
+                              ? Center(
+                                  child: Icon(
+                                    Icons.image_not_supported_rounded,
+                                    color: context.colors.onSecondary,
+                                  ),
+                                )
+                              : ClipRRect(
+                                  borderRadius: BorderRadius.circular(8.0),
+                                  child: Image.memory(
+                                    Uint8List.fromList(pet.image ?? []),
+                                    width: 50.0,
+                                    height: 50.0,
+                                    gaplessPlayback: true,
+                                  ),
+                                ),
                         ),
-                  title: Text(pet.name ?? '', style: context.texts.bodyLarge),
-                  subtitle: Text(pet.species?.string ?? '', style: context.texts.bodySmall),
+                        const SizedBox(width: 12.0),
+                        Column(
+                          children: [
+                            Text(pet.name ?? '', style: context.texts.titleMedium),
+                            Text(pet.species?.string ?? '', style: context.texts.bodyLarge)
+                          ],
+                        )
+                      ],
+                    ),
+                  ),
                 );
               },
               separatorBuilder: (context, index) => const Divider(),

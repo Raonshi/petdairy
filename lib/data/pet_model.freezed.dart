@@ -29,6 +29,7 @@ mixin _$Pet {
   AnimalType? get species => throw _privateConstructorUsedError;
   String? get note => throw _privateConstructorUsedError;
   List<Routine>? get routines => throw _privateConstructorUsedError;
+  bool? get isNotiEnabled => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -49,7 +50,8 @@ abstract class $PetCopyWith<$Res> {
       GrowthType? growth,
       AnimalType? species,
       String? note,
-      List<Routine>? routines});
+      List<Routine>? routines,
+      bool? isNotiEnabled});
 }
 
 /// @nodoc
@@ -73,6 +75,7 @@ class _$PetCopyWithImpl<$Res, $Val extends Pet> implements $PetCopyWith<$Res> {
     Object? species = freezed,
     Object? note = freezed,
     Object? routines = freezed,
+    Object? isNotiEnabled = freezed,
   }) {
     return _then(_value.copyWith(
       uid: freezed == uid
@@ -111,6 +114,10 @@ class _$PetCopyWithImpl<$Res, $Val extends Pet> implements $PetCopyWith<$Res> {
           ? _value.routines
           : routines // ignore: cast_nullable_to_non_nullable
               as List<Routine>?,
+      isNotiEnabled: freezed == isNotiEnabled
+          ? _value.isNotiEnabled
+          : isNotiEnabled // ignore: cast_nullable_to_non_nullable
+              as bool?,
     ) as $Val);
   }
 }
@@ -130,7 +137,8 @@ abstract class _$$_PetCopyWith<$Res> implements $PetCopyWith<$Res> {
       GrowthType? growth,
       AnimalType? species,
       String? note,
-      List<Routine>? routines});
+      List<Routine>? routines,
+      bool? isNotiEnabled});
 }
 
 /// @nodoc
@@ -151,6 +159,7 @@ class __$$_PetCopyWithImpl<$Res> extends _$PetCopyWithImpl<$Res, _$_Pet>
     Object? species = freezed,
     Object? note = freezed,
     Object? routines = freezed,
+    Object? isNotiEnabled = freezed,
   }) {
     return _then(_$_Pet(
       uid: freezed == uid
@@ -189,6 +198,10 @@ class __$$_PetCopyWithImpl<$Res> extends _$PetCopyWithImpl<$Res, _$_Pet>
           ? _value._routines
           : routines // ignore: cast_nullable_to_non_nullable
               as List<Routine>?,
+      isNotiEnabled: freezed == isNotiEnabled
+          ? _value.isNotiEnabled
+          : isNotiEnabled // ignore: cast_nullable_to_non_nullable
+              as bool?,
     ));
   }
 }
@@ -206,7 +219,8 @@ class _$_Pet with DiagnosticableTreeMixin implements _Pet {
       this.growth,
       this.species,
       this.note,
-      final List<Routine>? routines})
+      final List<Routine>? routines,
+      this.isNotiEnabled})
       : _image = image,
         _routines = routines;
 
@@ -247,8 +261,11 @@ class _$_Pet with DiagnosticableTreeMixin implements _Pet {
   }
 
   @override
+  final bool? isNotiEnabled;
+
+  @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'Pet(uid: $uid, name: $name, birthDay: $birthDay, image: $image, sexType: $sexType, growth: $growth, species: $species, note: $note, routines: $routines)';
+    return 'Pet(uid: $uid, name: $name, birthDay: $birthDay, image: $image, sexType: $sexType, growth: $growth, species: $species, note: $note, routines: $routines, isNotiEnabled: $isNotiEnabled)';
   }
 
   @override
@@ -264,7 +281,8 @@ class _$_Pet with DiagnosticableTreeMixin implements _Pet {
       ..add(DiagnosticsProperty('growth', growth))
       ..add(DiagnosticsProperty('species', species))
       ..add(DiagnosticsProperty('note', note))
-      ..add(DiagnosticsProperty('routines', routines));
+      ..add(DiagnosticsProperty('routines', routines))
+      ..add(DiagnosticsProperty('isNotiEnabled', isNotiEnabled));
   }
 
   @override
@@ -281,7 +299,9 @@ class _$_Pet with DiagnosticableTreeMixin implements _Pet {
             (identical(other.growth, growth) || other.growth == growth) &&
             (identical(other.species, species) || other.species == species) &&
             (identical(other.note, note) || other.note == note) &&
-            const DeepCollectionEquality().equals(other._routines, _routines));
+            const DeepCollectionEquality().equals(other._routines, _routines) &&
+            (identical(other.isNotiEnabled, isNotiEnabled) ||
+                other.isNotiEnabled == isNotiEnabled));
   }
 
   @JsonKey(ignore: true)
@@ -296,7 +316,8 @@ class _$_Pet with DiagnosticableTreeMixin implements _Pet {
       growth,
       species,
       note,
-      const DeepCollectionEquality().hash(_routines));
+      const DeepCollectionEquality().hash(_routines),
+      isNotiEnabled);
 
   @JsonKey(ignore: true)
   @override
@@ -322,7 +343,8 @@ abstract class _Pet implements Pet {
       final GrowthType? growth,
       final AnimalType? species,
       final String? note,
-      final List<Routine>? routines}) = _$_Pet;
+      final List<Routine>? routines,
+      final bool? isNotiEnabled}) = _$_Pet;
 
   factory _Pet.fromJson(Map<String, dynamic> json) = _$_Pet.fromJson;
 
@@ -344,6 +366,8 @@ abstract class _Pet implements Pet {
   String? get note;
   @override
   List<Routine>? get routines;
+  @override
+  bool? get isNotiEnabled;
   @override
   @JsonKey(ignore: true)
   _$$_PetCopyWith<_$_Pet> get copyWith => throw _privateConstructorUsedError;

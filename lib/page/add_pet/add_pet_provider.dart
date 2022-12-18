@@ -4,6 +4,7 @@ import 'package:image_cropper/image_cropper.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:petdiary/data/enums.dart';
 import 'package:petdiary/data/pet_model.dart';
+import 'package:petdiary/data/routine_model.dart';
 import 'package:petdiary/repository/repository.dart';
 import 'package:uuid/uuid.dart';
 
@@ -92,7 +93,8 @@ class AddPetProvider extends ChangeNotifier {
 
   Future<bool> createPet() async {
     final String uid = const Uuid().v1();
-    newPet = newPet.copyWith(uid: uid);
+    List<String> dayOfWeeks = ['월', '화', '수', '목', '금', '토', '일'];
+    newPet = newPet.copyWith(uid: uid, routines: List.generate(7, (index) => Routine(dayOfWeek: dayOfWeeks[index])));
     return await _repository.createPet(newPet);
   }
 }

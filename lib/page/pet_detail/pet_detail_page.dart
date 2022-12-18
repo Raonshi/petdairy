@@ -70,9 +70,13 @@ class PetDetailPage extends StatelessWidget {
             }),
           ],
         ),
-        body: SingleChildScrollView(
-          child: Consumer<PetDetailProvider>(builder: (context, provider, _) {
-            return Column(
+        body: Consumer<PetDetailProvider>(builder: (context, provider, _) {
+          if (provider.pet == null) {
+            return const Center(child: CircularProgressIndicator.adaptive());
+          }
+
+          return SingleChildScrollView(
+            child: Column(
               children: [
                 // Banner Image
                 Stack(
@@ -293,51 +297,16 @@ class PetDetailPage extends StatelessWidget {
                     ),
                     const Divider(),
                     PetRootine(
-                      onChangedNoti: (value) {
-                        if (value) {
-                          showSnackbar(
-                            context,
-                            Row(
-                              children: [
-                                Icon(Icons.info_outline_rounded, color: context.colors.onPrimary),
-                                const SizedBox(width: 8.0),
-                                Text(
-                                  '루틴 알림을 설정했습니다.',
-                                  style: context.texts.bodyMedium!.copyWith(
-                                    fontWeight: FontWeight.bold,
-                                    color: context.colors.onPrimary,
-                                  ),
-                                ),
-                              ],
-                            ),
-                          );
-                        } else {
-                          showSnackbar(
-                            context,
-                            Row(
-                              children: [
-                                Icon(Icons.info_outline_rounded, color: context.colors.onPrimary),
-                                const SizedBox(width: 8.0),
-                                Text(
-                                  '루틴 알림을 취소했습니다.',
-                                  style: context.texts.bodyMedium!.copyWith(
-                                    fontWeight: FontWeight.bold,
-                                    color: context.colors.onPrimary,
-                                  ),
-                                ),
-                              ],
-                            ),
-                          );
-                        }
-                      },
+                      routines: provider.pet?.routines ?? [],
+                      provider: provider,
                     ),
                     const Divider(),
                   ],
                 ),
               ],
-            );
-          }),
-        ),
+            ),
+          );
+        }),
       ),
     );
   }

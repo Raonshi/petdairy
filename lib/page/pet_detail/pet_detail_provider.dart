@@ -7,7 +7,6 @@ import 'package:image_cropper/image_cropper.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
 import 'package:path_provider/path_provider.dart';
-import 'package:petdiary/config.dart';
 import 'package:petdiary/data/pet_model.dart';
 import 'package:petdiary/repository/repository.dart';
 
@@ -97,5 +96,10 @@ class PetDetailProvider extends ChangeNotifier {
   void updatePet() async {
     isUploaded = await _repository.updatePet(pet!);
     notifyListeners();
+  }
+
+  void changeNotiStatus(bool value) {
+    pet = pet!.copyWith(isNotiEnabled: value);
+    updatePet();
   }
 }

@@ -20,6 +20,7 @@ class Pet with _$Pet {
     AnimalType? species,
     String? note,
     List<Routine>? routines,
+    bool? isNotiEnabled,
   }) = _Pet;
 
   factory Pet.fromJson(Map<String, dynamic> json) => _$PetFromJson(json);

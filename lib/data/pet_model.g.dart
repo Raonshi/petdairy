@@ -20,6 +20,7 @@ _$_Pet _$$_PetFromJson(Map<String, dynamic> json) => _$_Pet(
       routines: (json['routines'] as List<dynamic>?)
           ?.map((e) => Routine.fromJson(e as Map<String, dynamic>))
           .toList(),
+      isNotiEnabled: json['isNotiEnabled'] as bool?,
     );
 
 Map<String, dynamic> _$$_PetToJson(_$_Pet instance) => <String, dynamic>{
@@ -32,6 +33,7 @@ Map<String, dynamic> _$$_PetToJson(_$_Pet instance) => <String, dynamic>{
       'species': _$AnimalTypeEnumMap[instance.species],
       'note': instance.note,
       'routines': instance.routines?.map((e) => e.toJson()).toList(),
+      'isNotiEnabled': instance.isNotiEnabled,
     };
 
 const _$SexTypeEnumMap = {
