@@ -97,15 +97,15 @@ class PetDetailPage extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Text(
-                            'Change Image',
-                            style: context.texts.bodySmall!.copyWith(
+                            'Change',
+                            style: context.texts.bodyLarge!.copyWith(
                               color: context.colors.onPrimary,
                               fontWeight: FontWeight.bold,
                             ),
                           ),
                           Text(
-                            'Download Image',
-                            style: context.texts.bodySmall!.copyWith(
+                            'Download',
+                            style: context.texts.bodyLarge!.copyWith(
                               color: context.colors.onPrimary,
                               fontWeight: FontWeight.bold,
                             ),
@@ -118,130 +118,74 @@ class PetDetailPage extends StatelessWidget {
 
                 Column(
                   children: [
-                    // Name
                     Padding(
                       padding: const EdgeInsets.symmetric(vertical: 12.0, horizontal: 16.0),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          const Text('이름'),
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
-                              Text(provider.pet?.name ?? ''),
-                              InkWell(
-                                onTap: () {},
-                                child: const Icon(Icons.edit_rounded, size: 16.0),
-                              ),
-                            ],
-                          ),
-                        ],
-                      ),
-                    ),
-                    const Divider(),
+                              Row(
+                                children: [
+                                  // Name
+                                  Text(
+                                    provider.pet?.name ?? '',
+                                    style: context.texts.headlineSmall,
+                                  ),
+                                  const SizedBox(width: 8.0),
 
-                    // Sex
-                    Padding(
-                      padding: const EdgeInsets.symmetric(vertical: 12.0, horizontal: 16.0),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          const Text('성별'),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Text(provider.pet?.sexType?.string ?? SexType.unknown.string),
-                              InkWell(
-                                onTap: () {},
-                                child: const Icon(Icons.edit_rounded, size: 16.0),
+                                  // Sex
+                                  if ((provider.pet?.sexType ?? SexType.unknown) == SexType.male)
+                                    Icon(Icons.male_rounded, size: 28.0, color: Colors.lightBlue.shade300)
+                                  else if ((provider.pet?.sexType ?? SexType.unknown) == SexType.female)
+                                    Icon(Icons.female_rounded, size: 28.0, color: Colors.red.shade300)
+                                  else
+                                    Icon(Icons.question_mark, size: 28.0, color: context.theme.disabledColor),
+                                ],
                               ),
-                            ],
-                          ),
-                        ],
-                      ),
-                    ),
-                    const Divider(),
 
-                    // Growth
-                    Padding(
-                      padding: const EdgeInsets.symmetric(vertical: 12.0, horizontal: 16.0),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          const Text('성숙도'),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Text(provider.pet?.growth?.string ?? GrowthType.unknown.string),
+                              // Edit
                               InkWell(
                                 onTap: () {},
-                                child: const Icon(Icons.edit_rounded, size: 16.0),
+                                child: Icon(Icons.edit_rounded, size: 24.0, color: context.colors.secondary),
                               ),
                             ],
                           ),
-                        ],
-                      ),
-                    ),
-                    const Divider(),
+                          const SizedBox(height: 4.0),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Row(
+                                children: [
+                                  // Species
+                                  Text(
+                                    provider.pet?.species?.string ?? AnimalType.unknown.string,
+                                    style: context.texts.bodyLarge,
+                                  ),
+                                  const SizedBox(width: 8.0),
 
-                    // Species
-                    Padding(
-                      padding: const EdgeInsets.symmetric(vertical: 12.0, horizontal: 16.0),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          const Text('종'),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Text(provider.pet?.species?.string ?? AnimalType.unknown.string),
-                              InkWell(
-                                onTap: () {},
-                                child: const Icon(Icons.edit_rounded, size: 16.0),
+                                  // Growth
+                                  Text(
+                                    provider.pet?.growth?.string ?? GrowthType.unknown.string,
+                                    style: context.texts.bodyLarge,
+                                  ),
+                                ],
                               ),
-                            ],
-                          ),
-                        ],
-                      ),
-                    ),
-                    const Divider(),
 
-                    // Birth
-                    Padding(
-                      padding: const EdgeInsets.symmetric(vertical: 12.0, horizontal: 16.0),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          const Text('태어난 날짜'),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Text(DateFormat('yyyy-MM-dd').format(provider.pet?.birthDay ?? DateTime(1970))),
-                              InkWell(
-                                onTap: () {},
-                                child: const Icon(Icons.edit_rounded, size: 16.0),
+                              // Birthday
+                              Text(
+                                DateFormat('yyyy-MM-dd').format(provider.pet?.birthDay ?? DateTime(1970)),
+                                style: context.texts.bodyLarge,
                               ),
                             ],
                           ),
-                        ],
-                      ),
-                    ),
-                    const Divider(),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(vertical: 12.0, horizontal: 16.0),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          const Text('메모'),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Text(provider.pet?.note ?? ''),
-                              InkWell(
-                                onTap: () {},
-                                child: const Icon(Icons.edit_rounded, size: 16.0),
-                              ),
-                            ],
+                          const SizedBox(height: 12.0),
+
+                          // Memo
+                          Text(
+                            provider.pet?.note ?? '',
+                            style: context.texts.bodyLarge,
                           ),
                         ],
                       ),
