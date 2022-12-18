@@ -15,6 +15,8 @@ class AddPetProvider extends ChangeNotifier {
     growth: GrowthType.unknown,
   );
 
+  late ImageCache imageCache;
+
   void onClickImageFromGallery() async {
     ImagePicker picker = ImagePicker();
     final XFile? file = await picker.pickImage(source: ImageSource.gallery);
@@ -53,6 +55,7 @@ class AddPetProvider extends ChangeNotifier {
 
     if (croppedFile != null) {
       final Uint8List bytes = await croppedFile.readAsBytes();
+      imageCache = ImageCache();
       newPet = newPet.copyWith(image: bytes);
     }
   }

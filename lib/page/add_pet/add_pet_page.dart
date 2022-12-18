@@ -50,7 +50,10 @@ class AddPetPage extends StatelessWidget {
                                       children: [
                                         Expanded(
                                           child: InkWell(
-                                            onTap: () => provider.onClickImageFromGallery(),
+                                            onTap: () {
+                                              provider.onClickImageFromGallery();
+                                              Navigator.of(context).pop();
+                                            },
                                             child: Column(
                                               children: const [
                                                 Icon(Icons.image, size: 64.0),
@@ -64,7 +67,10 @@ class AddPetPage extends StatelessWidget {
                                         ),
                                         Expanded(
                                           child: InkWell(
-                                            onTap: () => provider.onClickImageFromCamera(),
+                                            onTap: () {
+                                              provider.onClickImageFromCamera();
+                                              Navigator.of(context).pop();
+                                            },
                                             child: Column(
                                               children: const [
                                                 Icon(Icons.camera, size: 64.0),
@@ -107,7 +113,12 @@ class AddPetPage extends StatelessWidget {
                                 )
                               : ClipRRect(
                                   borderRadius: BorderRadius.circular(8.0),
-                                  child: Image.memory(Uint8List.fromList(provider.newPet.image ?? [])),
+                                  child: Image.memory(
+                                    Uint8List.fromList(provider.newPet.image ?? []),
+                                    width: MediaQuery.of(context).size.width,
+                                    height: MediaQuery.of(context).size.width,
+                                    gaplessPlayback: true,
+                                  ),
                                 ),
                         );
                       }),
