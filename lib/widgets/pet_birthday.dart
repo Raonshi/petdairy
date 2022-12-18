@@ -3,9 +3,10 @@ import 'package:intl/intl.dart';
 import 'package:petdiary/style/theme.dart';
 
 class PetBirthday extends StatefulWidget {
-  const PetBirthday({super.key, required this.onChanged});
+  const PetBirthday({super.key, required this.onChanged, this.initialValue = ''});
 
   final ValueChanged<DateTime?> onChanged;
+  final String initialValue;
 
   @override
   State<PetBirthday> createState() => _PetBirthdayState();
@@ -16,7 +17,7 @@ class _PetBirthdayState extends State<PetBirthday> {
 
   @override
   void initState() {
-    _textEditingController = TextEditingController();
+    _textEditingController = TextEditingController(text: widget.initialValue);
     super.initState();
   }
 

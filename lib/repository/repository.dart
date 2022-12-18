@@ -34,7 +34,32 @@ class Repository {
     return pets.firstWhere((element) => element.uid == uid);
   }
 
-  Future<void> updatePet() async {}
+  Future<bool> updatePet(Pet pet) async {
+    try {
+      final SharedPreferences localStorage = await SharedPreferences.getInstance();
+      List<String> petList = localStorage.getStringList(LocalStorageKey.petList) ?? [];
+
+      List<Pet> pets = petList.map((e) => Pet.fromJson(jsonDecode(e))).toList();
+
+      final bool isContains = pets.any((e) => e.uid == pet.uid);
+
+      lgr.d(isContains);
+
+      if (isContains) {
+        pets.removeWhere((e) => e.uid == pet.uid);
+        pets.add(pet);
+
+        petList = pets.map((e) => jsonEncode(e.toJson())).toList();
+        localStorage.setStringList(LocalStorageKey.petList, petList);
+        return true;
+      } else {
+        return false;
+      }
+    } catch (e) {
+      lgr.e(e);
+      return false;
+    }
+  }
 
   Future<bool> deletePet(String uid) async {
     try {

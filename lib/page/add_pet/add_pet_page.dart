@@ -3,13 +3,13 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:petdiary/data/enums.dart';
 import 'package:petdiary/page/add_pet/add_pet_provider.dart';
-import 'package:petdiary/page/add_pet/local_widgets/pet_birthday.dart';
-import 'package:petdiary/page/add_pet/local_widgets/pet_growth.dart';
-import 'package:petdiary/page/add_pet/local_widgets/pet_memo.dart';
-import 'package:petdiary/page/add_pet/local_widgets/pet_name.dart';
-import 'package:petdiary/page/add_pet/local_widgets/pet_sexual.dart';
-import 'package:petdiary/page/add_pet/local_widgets/pet_species.dart';
 import 'package:petdiary/style/theme.dart';
+import 'package:petdiary/widgets/pet_birthday.dart';
+import 'package:petdiary/widgets/pet_growth.dart';
+import 'package:petdiary/widgets/pet_memo.dart';
+import 'package:petdiary/widgets/pet_name.dart';
+import 'package:petdiary/widgets/pet_sexual.dart';
+import 'package:petdiary/widgets/pet_species.dart';
 import 'package:provider/provider.dart';
 
 class AddPetPage extends StatelessWidget {

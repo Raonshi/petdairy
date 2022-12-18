@@ -6,6 +6,7 @@ import 'package:petdiary/config.dart';
 import 'package:petdiary/data/enums.dart';
 import 'package:petdiary/page/pet_detail/pet_detail_provider.dart';
 import 'package:petdiary/style/theme.dart';
+import 'package:petdiary/tools.dart';
 import 'package:provider/provider.dart';
 
 class PetDetailPage extends StatelessWidget {
@@ -96,18 +97,79 @@ class PetDetailPage extends StatelessWidget {
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          Text(
-                            'Change',
-                            style: context.texts.bodyLarge!.copyWith(
-                              color: context.colors.onPrimary,
-                              fontWeight: FontWeight.bold,
+                          InkWell(
+                            onTap: () {
+                              showDialog(
+                                context: context,
+                                builder: (context) => AlertDialog(
+                                  content: Column(
+                                    mainAxisSize: MainAxisSize.min,
+                                    children: [
+                                      Row(
+                                        mainAxisSize: MainAxisSize.min,
+                                        children: [
+                                          Expanded(
+                                            child: InkWell(
+                                              onTap: () {
+                                                provider
+                                                    .onClickImageFromGallery()
+                                                    .then((value) => Navigator.of(context).pop());
+                                              },
+                                              child: Column(
+                                                children: const [
+                                                  Icon(Icons.image, size: 64.0),
+                                                  Text(
+                                                    'Get photo from gallery',
+                                                    textAlign: TextAlign.center,
+                                                  ),
+                                                ],
+                                              ),
+                                            ),
+                                          ),
+                                          Expanded(
+                                            child: InkWell(
+                                              onTap: () {
+                                                provider
+                                                    .onClickImageFromCamera()
+                                                    .then((value) => Navigator.of(context).pop());
+                                              },
+                                              child: Column(
+                                                children: const [
+                                                  Icon(Icons.camera, size: 64.0),
+                                                  Text(
+                                                    'Get photo from camera',
+                                                    textAlign: TextAlign.center,
+                                                  ),
+                                                ],
+                                              ),
+                                            ),
+                                          )
+                                        ],
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ).then((value) {
+                                lgr.d('asdfasdf');
+                                provider.updatePet();
+                              });
+                            },
+                            child: Text(
+                              'Change',
+                              style: context.texts.bodyLarge!.copyWith(
+                                color: context.colors.onPrimary,
+                                fontWeight: FontWeight.bold,
+                              ),
                             ),
                           ),
-                          Text(
-                            'Download',
-                            style: context.texts.bodyLarge!.copyWith(
-                              color: context.colors.onPrimary,
-                              fontWeight: FontWeight.bold,
+                          InkWell(
+                            onTap: () {},
+                            child: Text(
+                              'Download',
+                              style: context.texts.bodyLarge!.copyWith(
+                                color: context.colors.onPrimary,
+                                fontWeight: FontWeight.bold,
+                              ),
                             ),
                           ),
                         ],
@@ -146,10 +208,12 @@ class PetDetailPage extends StatelessWidget {
                               ),
 
                               // Edit
-                              InkWell(
-                                onTap: () {},
-                                child: Icon(Icons.edit_rounded, size: 24.0, color: context.colors.secondary),
-                              ),
+                              Consumer<PetDetailProvider>(builder: (context, provider, _) {
+                                return InkWell(
+                                  onTap: () => context.go('/edit?id=${provider.pet?.uid}'),
+                                  child: Icon(Icons.edit_rounded, size: 24.0, color: context.colors.secondary),
+                                );
+                              }),
                             ],
                           ),
                           const SizedBox(height: 4.0),
