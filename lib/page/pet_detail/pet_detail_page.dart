@@ -294,7 +294,41 @@ class PetDetailPage extends StatelessWidget {
                     const Divider(),
                     PetRootine(
                       onChangedNoti: (value) {
-                        lgr.d(value);
+                        if (value) {
+                          showSnackbar(
+                            context,
+                            Row(
+                              children: [
+                                Icon(Icons.info_outline_rounded, color: context.colors.onPrimary),
+                                const SizedBox(width: 8.0),
+                                Text(
+                                  '루틴 알림을 설정했습니다.',
+                                  style: context.texts.bodyMedium!.copyWith(
+                                    fontWeight: FontWeight.bold,
+                                    color: context.colors.onPrimary,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          );
+                        } else {
+                          showSnackbar(
+                            context,
+                            Row(
+                              children: [
+                                Icon(Icons.info_outline_rounded, color: context.colors.onPrimary),
+                                const SizedBox(width: 8.0),
+                                Text(
+                                  '루틴 알림을 취소했습니다.',
+                                  style: context.texts.bodyMedium!.copyWith(
+                                    fontWeight: FontWeight.bold,
+                                    color: context.colors.onPrimary,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          );
+                        }
                       },
                     ),
                     const Divider(),

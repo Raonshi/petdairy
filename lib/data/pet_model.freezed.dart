@@ -28,6 +28,7 @@ mixin _$Pet {
   GrowthType? get growth => throw _privateConstructorUsedError;
   AnimalType? get species => throw _privateConstructorUsedError;
   String? get note => throw _privateConstructorUsedError;
+  List<Routine>? get routines => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -47,7 +48,8 @@ abstract class $PetCopyWith<$Res> {
       SexType? sexType,
       GrowthType? growth,
       AnimalType? species,
-      String? note});
+      String? note,
+      List<Routine>? routines});
 }
 
 /// @nodoc
@@ -70,6 +72,7 @@ class _$PetCopyWithImpl<$Res, $Val extends Pet> implements $PetCopyWith<$Res> {
     Object? growth = freezed,
     Object? species = freezed,
     Object? note = freezed,
+    Object? routines = freezed,
   }) {
     return _then(_value.copyWith(
       uid: freezed == uid
@@ -104,6 +107,10 @@ class _$PetCopyWithImpl<$Res, $Val extends Pet> implements $PetCopyWith<$Res> {
           ? _value.note
           : note // ignore: cast_nullable_to_non_nullable
               as String?,
+      routines: freezed == routines
+          ? _value.routines
+          : routines // ignore: cast_nullable_to_non_nullable
+              as List<Routine>?,
     ) as $Val);
   }
 }
@@ -122,7 +129,8 @@ abstract class _$$_PetCopyWith<$Res> implements $PetCopyWith<$Res> {
       SexType? sexType,
       GrowthType? growth,
       AnimalType? species,
-      String? note});
+      String? note,
+      List<Routine>? routines});
 }
 
 /// @nodoc
@@ -142,6 +150,7 @@ class __$$_PetCopyWithImpl<$Res> extends _$PetCopyWithImpl<$Res, _$_Pet>
     Object? growth = freezed,
     Object? species = freezed,
     Object? note = freezed,
+    Object? routines = freezed,
   }) {
     return _then(_$_Pet(
       uid: freezed == uid
@@ -176,6 +185,10 @@ class __$$_PetCopyWithImpl<$Res> extends _$PetCopyWithImpl<$Res, _$_Pet>
           ? _value.note
           : note // ignore: cast_nullable_to_non_nullable
               as String?,
+      routines: freezed == routines
+          ? _value._routines
+          : routines // ignore: cast_nullable_to_non_nullable
+              as List<Routine>?,
     ));
   }
 }
@@ -192,8 +205,10 @@ class _$_Pet with DiagnosticableTreeMixin implements _Pet {
       this.sexType,
       this.growth,
       this.species,
-      this.note})
-      : _image = image;
+      this.note,
+      final List<Routine>? routines})
+      : _image = image,
+        _routines = routines;
 
   factory _$_Pet.fromJson(Map<String, dynamic> json) => _$$_PetFromJson(json);
 
@@ -221,10 +236,19 @@ class _$_Pet with DiagnosticableTreeMixin implements _Pet {
   final AnimalType? species;
   @override
   final String? note;
+  final List<Routine>? _routines;
+  @override
+  List<Routine>? get routines {
+    final value = _routines;
+    if (value == null) return null;
+    if (_routines is EqualUnmodifiableListView) return _routines;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(value);
+  }
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'Pet(uid: $uid, name: $name, birthDay: $birthDay, image: $image, sexType: $sexType, growth: $growth, species: $species, note: $note)';
+    return 'Pet(uid: $uid, name: $name, birthDay: $birthDay, image: $image, sexType: $sexType, growth: $growth, species: $species, note: $note, routines: $routines)';
   }
 
   @override
@@ -239,7 +263,8 @@ class _$_Pet with DiagnosticableTreeMixin implements _Pet {
       ..add(DiagnosticsProperty('sexType', sexType))
       ..add(DiagnosticsProperty('growth', growth))
       ..add(DiagnosticsProperty('species', species))
-      ..add(DiagnosticsProperty('note', note));
+      ..add(DiagnosticsProperty('note', note))
+      ..add(DiagnosticsProperty('routines', routines));
   }
 
   @override
@@ -255,7 +280,8 @@ class _$_Pet with DiagnosticableTreeMixin implements _Pet {
             (identical(other.sexType, sexType) || other.sexType == sexType) &&
             (identical(other.growth, growth) || other.growth == growth) &&
             (identical(other.species, species) || other.species == species) &&
-            (identical(other.note, note) || other.note == note));
+            (identical(other.note, note) || other.note == note) &&
+            const DeepCollectionEquality().equals(other._routines, _routines));
   }
 
   @JsonKey(ignore: true)
@@ -269,7 +295,8 @@ class _$_Pet with DiagnosticableTreeMixin implements _Pet {
       sexType,
       growth,
       species,
-      note);
+      note,
+      const DeepCollectionEquality().hash(_routines));
 
   @JsonKey(ignore: true)
   @override
@@ -294,7 +321,8 @@ abstract class _Pet implements Pet {
       final SexType? sexType,
       final GrowthType? growth,
       final AnimalType? species,
-      final String? note}) = _$_Pet;
+      final String? note,
+      final List<Routine>? routines}) = _$_Pet;
 
   factory _Pet.fromJson(Map<String, dynamic> json) = _$_Pet.fromJson;
 
@@ -314,6 +342,8 @@ abstract class _Pet implements Pet {
   AnimalType? get species;
   @override
   String? get note;
+  @override
+  List<Routine>? get routines;
   @override
   @JsonKey(ignore: true)
   _$$_PetCopyWith<_$_Pet> get copyWith => throw _privateConstructorUsedError;

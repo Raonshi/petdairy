@@ -14,6 +14,8 @@ ThemeData get lightTheme => ThemeData(
         onPrimary: Colors.white,
         secondary: Colors.indigo.shade400,
         onSecondary: Colors.white,
+        tertiary: Colors.green.shade800,
+        onTertiary: Colors.black,
         error: Colors.red.shade800,
         onError: Colors.white,
         background: Colors.white,

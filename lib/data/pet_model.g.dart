@@ -17,6 +17,9 @@ _$_Pet _$$_PetFromJson(Map<String, dynamic> json) => _$_Pet(
       growth: $enumDecodeNullable(_$GrowthTypeEnumMap, json['growth']),
       species: $enumDecodeNullable(_$AnimalTypeEnumMap, json['species']),
       note: json['note'] as String?,
+      routines: (json['routines'] as List<dynamic>?)
+          ?.map((e) => Routine.fromJson(e as Map<String, dynamic>))
+          .toList(),
     );
 
 Map<String, dynamic> _$$_PetToJson(_$_Pet instance) => <String, dynamic>{
@@ -28,6 +31,7 @@ Map<String, dynamic> _$$_PetToJson(_$_Pet instance) => <String, dynamic>{
       'growth': _$GrowthTypeEnumMap[instance.growth],
       'species': _$AnimalTypeEnumMap[instance.species],
       'note': instance.note,
+      'routines': instance.routines?.map((e) => e.toJson()).toList(),
     };
 
 const _$SexTypeEnumMap = {

@@ -35,9 +35,7 @@ class _PetRootineState extends State<PetRootine> {
             children: [
               Text(
                 '루틴',
-                style: context.texts.bodyLarge!.copyWith(
-                  fontWeight: FontWeight.bold,
-                ),
+                style: context.texts.headlineSmall,
               ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.end,
@@ -67,41 +65,115 @@ class _PetRootineState extends State<PetRootine> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: List.generate(week.length, (index) {
                 final String day = week[index];
-                return Container(
-                  padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 12.0),
-                  margin: const EdgeInsets.symmetric(horizontal: 8.0),
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(8.0),
-                    gradient: LinearGradient(
+                return _RoutineCard(
+                  day: day,
+                  backgroundColor: context.colors.secondary,
+                  onClickEdit: () {
+                    showDialog(
+                      context: context,
+                      builder: (context) => AlertDialog(
+                        title: Text('$day요일 루틴 수정'),
+                        content: Column(
+                          mainAxisSize: MainAxisSize.min,
+                          children: const [
+                            Text('루틴 종류 선택'),
+                            Text('루틴 상세 내용'),
+                          ],
+                        ),
+                      ),
+                    );
+                  },
+                );
+              }),
+            ),
+          ),
+        ),
+      ],
+    );
+  }
+}
+
+class _RoutineCard extends StatefulWidget {
+  const _RoutineCard({
+    required this.day,
+    required this.onClickEdit,
+    this.backgroundColor = Colors.grey,
+  });
+
+  final String day;
+  final Color backgroundColor;
+  final VoidCallback onClickEdit;
+
+  @override
+  State<_RoutineCard> createState() => __RoutineCardState();
+}
+
+class __RoutineCardState extends State<_RoutineCard> {
+  bool isEnable = true;
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: [
+        InkWell(
+          onTap: () {
+            setState(() {
+              isEnable = !isEnable;
+            });
+          },
+          child: Container(
+            padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 12.0),
+            margin: const EdgeInsets.symmetric(horizontal: 8.0),
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(8.0),
+              gradient: isEnable
+                  ? LinearGradient(
                       colors: [
-                        context.colors.secondary.withOpacity(0.7),
-                        context.colors.secondary,
+                        widget.backgroundColor.withOpacity(0.7),
+                        widget.backgroundColor,
+                      ],
+                      begin: Alignment.topLeft,
+                      end: Alignment.bottomRight,
+                    )
+                  : LinearGradient(
+                      colors: [
+                        context.theme.disabledColor.withOpacity(0.7),
+                        context.theme.disabledColor,
                       ],
                       begin: Alignment.topLeft,
                       end: Alignment.bottomRight,
                     ),
+            ),
+            child: Column(
+              children: [
+                Text(
+                  widget.day,
+                  style: context.texts.bodyMedium!.copyWith(
+                    fontWeight: FontWeight.bold,
+                    color: isEnable ? context.colors.onSecondary : context.colors.onBackground,
                   ),
-                  child: Column(
-                    children: [
-                      Text(
-                        day,
-                        style: context.texts.bodyMedium!.copyWith(
-                          fontWeight: FontWeight.bold,
-                          color: context.colors.onSecondary,
-                        ),
-                      ),
-                      Divider(color: context.colors.onSecondary, thickness: 1.0, height: 1.0),
-                      Text(
-                        '먹이',
-                        style: context.texts.bodyMedium!.copyWith(
-                          fontWeight: FontWeight.bold,
-                          color: context.colors.onSecondary,
-                        ),
-                      ),
-                    ],
+                ),
+                Divider(color: context.colors.onSecondary, thickness: 1.0, height: 1.0),
+                Text(
+                  '먹이',
+                  style: context.texts.bodyMedium!.copyWith(
+                    fontWeight: FontWeight.bold,
+                    color: isEnable ? context.colors.onSecondary : context.colors.onBackground,
                   ),
-                );
-              }),
+                ),
+              ],
+            ),
+          ),
+        ),
+        InkWell(
+          onTap: widget.onClickEdit,
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 4.0),
+            child: Text(
+              '수정',
+              style: context.texts.bodyLarge!.copyWith(
+                fontWeight: FontWeight.bold,
+                color: context.colors.tertiary,
+              ),
             ),
           ),
         ),

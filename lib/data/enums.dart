@@ -29,3 +29,15 @@ enum SexType {
   const SexType(this.string);
   final String string;
 }
+
+enum RoutineType {
+  feed('먹이'),
+  cleaning('청소'),
+  washing('목욕'),
+  health('건강'),
+  play('놀이'),
+  etc('기타');
+
+  const RoutineType(this.string);
+  final String string;
+}
