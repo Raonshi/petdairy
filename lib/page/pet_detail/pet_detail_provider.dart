@@ -7,7 +7,9 @@ import 'package:image_cropper/image_cropper.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
 import 'package:path_provider/path_provider.dart';
+import 'package:petdiary/config.dart';
 import 'package:petdiary/data/pet_model.dart';
+import 'package:petdiary/data/routine_model.dart';
 import 'package:petdiary/repository/repository.dart';
 
 class PetDetailProvider extends ChangeNotifier {
@@ -101,5 +103,15 @@ class PetDetailProvider extends ChangeNotifier {
   void changeNotiStatus(bool value) {
     pet = pet!.copyWith(isNotiEnabled: value);
     updatePet();
+  }
+
+  void updateRoutine(Routine routine, int index) {
+    List<Routine> newRoutines = pet!.routines!.toList();
+    newRoutines.replaceRange(index, index + 1, [routine]);
+    pet = pet!.copyWith(routines: newRoutines);
+
+    updatePet();
+
+    notifyListeners();
   }
 }

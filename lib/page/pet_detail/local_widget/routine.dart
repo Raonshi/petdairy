@@ -77,27 +77,48 @@ class PetRootine extends StatelessWidget {
                     routine = routine.copyWith(isEnable: value);
                     lgr.d(routine);
                   },
-                  onClickEdit: () {
-                    showDialog(
+                  onClickEdit: () async {
+                    await showDialog(
                       context: context,
-                      builder: (context) => AlertDialog(
-                        title: Text('${routine.dayOfWeek}요일 루틴 수정'),
-                        content: Column(
-                          mainAxisSize: MainAxisSize.min,
-                          children: [
-                            CustomSelectInputField<RoutineType>(
-                              initialText: routine.type?.string ?? RoutineType.etc.string,
-                              options: RoutineType.values,
-                              onChanged: (value) {
-                                routine = routine.copyWith(type: value);
-                                lgr.d(routine);
+                      builder: (context) {
+                        Routine newRoutine = routine.copyWith();
+                        return AlertDialog(
+                          title: Text('${routine.dayOfWeek}요일 루틴 수정'),
+                          content: Column(
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              CustomSelectInputField<RoutineType>(
+                                initialText: routine.type?.string ?? RoutineType.etc.string,
+                                options: RoutineType.values,
+                                onChanged: (value) {
+                                  newRoutine = newRoutine.copyWith(type: value);
+                                  lgr.d(routine);
+                                },
+                              ),
+                              const SizedBox(height: 8.0),
+                              CustomInputField(
+                                label: '루틴 내용',
+                                initialValue: routine.detail ?? '',
+                                onChanged: (value) {
+                                  newRoutine = newRoutine.copyWith(detail: value);
+                                },
+                              ),
+                            ],
+                          ),
+                          actions: [
+                            ElevatedButton(
+                              onPressed: () {
+                                routine = routine.copyWith(type: newRoutine.type, detail: newRoutine.detail);
+                                Navigator.of(context).pop();
                               },
+                              child: const Text('저장'),
                             ),
-                            Text('루틴 상세 내용'),
                           ],
-                        ),
-                      ),
+                        );
+                      },
                     );
+
+                    provider.updateRoutine(routine, index);
                   },
                 );
               }),
@@ -125,8 +146,6 @@ class __RoutineHeaderState extends State<_RoutineHeader> {
   @override
   void initState() {
     _enableNoti = widget.initialValue;
-    lgr.d(_enableNoti);
-    lgr.d(widget.initialValue);
     super.initState();
   }
 
@@ -227,7 +246,7 @@ class __RoutineCardState extends State<_RoutineCard> {
                 ),
                 Divider(color: context.colors.onSecondary, thickness: 1.0, height: 1.0),
                 Text(
-                  '먹이',
+                  widget.routine.type?.string ?? RoutineType.etc.string,
                   style: context.texts.bodyMedium!.copyWith(
                     fontWeight: FontWeight.bold,
                     color: isEnable ? context.colors.onSecondary : context.colors.onBackground,
