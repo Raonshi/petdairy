@@ -2,6 +2,7 @@
     package="com.example.petdiary">
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />ß
    <application
         android:label="petdiary"
         android:name="${applicationName}"

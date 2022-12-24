@@ -10,7 +10,8 @@ class AuthProvider extends ChangeNotifier {
     checkAuth();
   }
 
-  void checkAuth() {
+  void checkAuth() async {
+    await Future.delayed(const Duration(milliseconds: 300));
     FirebaseAuth.instance.idTokenChanges().listen((user) {
       if (user == null) {
         isSignIn = false;

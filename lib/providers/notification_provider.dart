@@ -3,18 +3,26 @@ import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:petdiary/config.dart';
 
-class NotificationProvider extends ChangeNotifier {
+class NotificationProvider with ChangeNotifier {
   late FlutterLocalNotificationsPlugin plugin;
 
   NotificationProvider() {
+    init();
+  }
+
+  void init() {
     initNoti();
     initFcm();
   }
 
   void initFcm() async {
     FirebaseMessaging messaging = FirebaseMessaging.instance;
+    await messaging.getToken(
+          vapidKey: 'BNDU4B7okgsP3OMX--pATl9i3CzhPuHb7jT8YjwHZB2mk_XSwu3I5-J1hoMKFsrPAyRSTGbGO_VlUP7HNpjzbHw',
+        ) ??
+        '';
 
-    NotificationSettings settings = await messaging.requestPermission(
+    await messaging.requestPermission(
       alert: true,
       announcement: false,
       badge: true,
@@ -24,24 +32,8 @@ class NotificationProvider extends ChangeNotifier {
       sound: true,
     );
 
-    lgr.d('User granted permission: ${settings.authorizationStatus}');
-
     FirebaseMessaging.onMessage.listen((RemoteMessage message) {
-      lgr.d('Got a message whilst in the foreground!');
-      lgr.d('Message data: ${message.data}');
-
       if (message.notification != null) {
-        lgr.d('Message also contained a notification: ${message.notification}');
-
-        const AndroidNotificationDetails androidNotificationDetails = AndroidNotificationDetails(
-          'channelId',
-          'channelName',
-          channelDescription: 'channel description',
-          importance: Importance.max,
-          priority: Priority.max,
-          showWhen: false,
-        );
-
         showNotification(
           message.hashCode,
           message.notification?.title,
