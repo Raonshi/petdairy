@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:loader_overlay/loader_overlay.dart';
 import 'package:petdiary/config.dart';
+import 'package:petdiary/style/theme.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class SettingPage extends StatelessWidget {
@@ -13,12 +14,16 @@ class SettingPage extends StatelessWidget {
     return LoaderOverlay(
       child: Scaffold(
         appBar: AppBar(
+          backgroundColor: context.colors.primary,
           leading: IconButton(
             onPressed: () => context.go('/'),
             iconSize: 32.0,
-            icon: const Icon(Icons.chevron_left_rounded),
+            icon: Icon(Icons.chevron_left_rounded, color: context.colors.onPrimary),
           ),
-          title: const Text('Add New Pet'),
+          title: Text(
+            '설정',
+            style: context.texts.titleLarge!.copyWith(color: context.colors.onPrimary),
+          ),
         ),
         body: Column(
           children: [
@@ -28,6 +33,7 @@ class SettingPage extends StatelessWidget {
               },
               title: Text('데이터 초기화'),
             ),
+            Divider(),
             ListTile(
               onTap: () {
                 context.loaderOverlay.show();
@@ -38,6 +44,7 @@ class SettingPage extends StatelessWidget {
               },
               title: Text('로그아웃'),
             ),
+            Divider(),
           ],
         ),
       ),
