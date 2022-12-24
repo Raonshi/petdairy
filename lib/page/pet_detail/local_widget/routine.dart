@@ -75,7 +75,7 @@ class PetRootine extends StatelessWidget {
                   backgroundColor: context.colors.secondary,
                   onClickCard: (value) {
                     routine = routine.copyWith(isEnable: value);
-                    lgr.d(routine);
+                    provider.updateRoutine(routine, index);
                   },
                   onClickEdit: () async {
                     await showDialog(
@@ -200,7 +200,14 @@ class _RoutineCard extends StatefulWidget {
 }
 
 class __RoutineCardState extends State<_RoutineCard> {
-  bool isEnable = true;
+  late bool isEnable;
+
+  @override
+  void initState() {
+    isEnable = widget.routine.isEnable;
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Column(
