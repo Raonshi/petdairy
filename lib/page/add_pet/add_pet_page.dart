@@ -89,7 +89,7 @@ class AddPetPage extends StatelessWidget {
                               ),
                             );
                           },
-                          child: provider.newPet.image == null
+                          child: provider.cachedImage == null
                               ? Container(
                                   decoration: BoxDecoration(
                                     color: context.colors.secondary,
@@ -114,7 +114,7 @@ class AddPetPage extends StatelessWidget {
                               : ClipRRect(
                                   borderRadius: BorderRadius.circular(8.0),
                                   child: Image.memory(
-                                    Uint8List.fromList(provider.newPet.image ?? []),
+                                    Uint8List.fromList(provider.cachedImage ?? []),
                                     width: MediaQuery.of(context).size.width,
                                     height: MediaQuery.of(context).size.width,
                                     gaplessPlayback: true,

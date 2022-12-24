@@ -1,78 +1,94 @@
-import 'dart:convert';
-
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_storage/firebase_storage.dart';
+import 'package:flutter/foundation.dart';
 import 'package:petdiary/config.dart';
 import 'package:petdiary/data/pet_model.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 class Repository {
-  Future<bool> createPet(Pet pet) async {
-    try {
-      final SharedPreferences localStorage = await SharedPreferences.getInstance();
-      List<String> petList = localStorage.getStringList(LocalStorageKey.petList) ?? [];
+  final CollectionReference<Map<String, dynamic>> petsRef = FirebaseFirestore.instance.collection('pets');
 
-      petList.add(jsonEncode(pet.toJson()));
-      localStorage.setStringList(LocalStorageKey.petList, petList);
+  Future<bool> createPet(Pet pet, Uint8List? cachedImage) async {
+    final DocumentReference docRef = petsRef.doc();
+
+    String? imageUrl = await uploadFile(cachedImage!, docRef.id);
+
+    final bool result = await docRef
+        .set(pet.copyWith(uid: docRef.id, owner: FirebaseAuth.instance.currentUser!.uid, imageUrl: imageUrl).toJson())
+        .then((_) async {
+      lgr.d('createPet() : Success!');
       return true;
-    } catch (e) {
-      lgr.e(e);
+    }, onError: (err) {
+      lgr.e('createPet() : Failed!', err);
       return false;
-    }
+    });
+
+    return result;
   }
 
   Future<List<Pet>> getAllPets() async {
-    final SharedPreferences localStorage = await SharedPreferences.getInstance();
-    List<String> strings = localStorage.getStringList(LocalStorageKey.petList) ?? [];
-
-    return strings.map((e) {
-      Map<String, dynamic> json = jsonDecode(e);
-      return Pet.fromJson(json);
-    }).toList();
+    return await petsRef.get().then((snapshot) {
+      return snapshot.docs.map((e) => Pet.fromJson(e.data())).toList();
+    }, onError: (err) {
+      lgr.e('getAllPets() : Failed!', err);
+      return [];
+    });
   }
 
   Future<Pet> getPet(String uid) async {
-    List<Pet> pets = await getAllPets();
-    return pets.firstWhere((element) => element.uid == uid);
+    final DocumentReference<Map<String, dynamic>> docRef = petsRef.doc(uid);
+    return await docRef.get().then((snapshot) {
+      final Map<String, dynamic> json = snapshot.data()!;
+      return Pet.fromJson(json);
+    }, onError: (err) {
+      lgr.e('getPet() : Failed!', err);
+      return Pet();
+    });
   }
 
   Future<bool> updatePet(Pet pet) async {
-    try {
-      final SharedPreferences localStorage = await SharedPreferences.getInstance();
-      List<String> petList = localStorage.getStringList(LocalStorageKey.petList) ?? [];
+    final DocumentReference<Map<String, dynamic>> docRef = petsRef.doc(pet.uid);
 
-      List<Pet> pets = petList.map((e) => Pet.fromJson(jsonDecode(e))).toList();
-
-      final bool isContains = pets.any((e) => e.uid == pet.uid);
-
-      lgr.d(isContains);
-
-      if (isContains) {
-        pets.removeWhere((e) => e.uid == pet.uid);
-        pets.add(pet);
-
-        petList = pets.map((e) => jsonEncode(e.toJson())).toList();
-        localStorage.setStringList(LocalStorageKey.petList, petList);
-        return true;
-      } else {
-        return false;
-      }
-    } catch (e) {
-      lgr.e(e);
+    final bool result = await docRef.set(pet.toJson()).then((_) {
+      lgr.d('updatePet() : Success!');
+      return true;
+    }, onError: (err) {
+      lgr.e('updatePet() : Failed!', err);
       return false;
-    }
+    });
+
+    return result;
   }
 
   Future<bool> deletePet(String uid) async {
-    try {
-      List<Pet> pets = await getAllPets();
-      pets.removeWhere((e) => e.uid == uid);
+    final DocumentReference docRef = petsRef.doc(uid);
 
-      final SharedPreferences localStorage = await SharedPreferences.getInstance();
-      List<String> petList = pets.map((e) => jsonEncode(e.toJson())).toList();
-      localStorage.setStringList(LocalStorageKey.petList, petList);
+    final bool result = await docRef.delete().then((_) {
+      lgr.d('updatePet() : Success!');
       return true;
-    } catch (e) {
-      lgr.e(e);
+    }, onError: (err) {
+      lgr.e('updatePet() : Failed!', err);
       return false;
-    }
+    });
+
+    return result;
+  }
+
+  Future<String?> uploadFile(Uint8List cachedFile, String uid) async {
+    Reference ref = FirebaseStorage.instance.ref('/images/${FirebaseAuth.instance.currentUser!.uid}/$uid.png');
+    String? url = await ref.putData(cachedFile).then((p0) async {
+      if (p0.state == TaskState.success) {
+        return await ref.getDownloadURL();
+      }
+      return null;
+    });
+
+    return url;
+  }
+
+  Future<Uint8List?> downloadFile(String uid) async {
+    Reference ref = FirebaseStorage.instance.ref('/images/${FirebaseAuth.instance.currentUser!.uid}/$uid.png');
+    Uint8List? data = await ref.getData();
+    return data;
   }
 }

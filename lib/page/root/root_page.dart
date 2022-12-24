@@ -64,7 +64,7 @@ class RootPage extends StatelessWidget {
                           ),
                           width: 64.0,
                           height: 64.0,
-                          child: pet.image == null
+                          child: pet.imageUrl == null
                               ? Center(
                                   child: Icon(
                                     Icons.image_not_supported_rounded,
@@ -73,8 +73,8 @@ class RootPage extends StatelessWidget {
                                 )
                               : ClipRRect(
                                   borderRadius: BorderRadius.circular(8.0),
-                                  child: Image.memory(
-                                    Uint8List.fromList(pet.image ?? []),
+                                  child: Image.network(
+                                    pet.imageUrl!,
                                     width: 50.0,
                                     height: 50.0,
                                     gaplessPlayback: true,

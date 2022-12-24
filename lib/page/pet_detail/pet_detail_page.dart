@@ -82,7 +82,7 @@ class PetDetailPage extends StatelessWidget {
                 Stack(
                   alignment: Alignment.bottomCenter,
                   children: [
-                    if (provider.pet?.image == null)
+                    if (provider.pet?.imageUrl == null)
                       Container(
                         color: context.colors.secondary,
                         width: MediaQuery.of(context).size.width,
@@ -96,7 +96,7 @@ class PetDetailPage extends StatelessWidget {
                         ),
                       )
                     else
-                      Image.memory(Uint8List.fromList(provider.pet?.image ?? [])),
+                      Image.network(provider.pet!.imageUrl!),
                     Padding(
                       padding: const EdgeInsets.all(16.0),
                       child: Row(

@@ -14,13 +14,14 @@ class Pet with _$Pet {
     String? uid,
     String? name,
     DateTime? birthDay,
-    List<int>? image,
+    String? imageUrl,
     SexType? sexType,
     GrowthType? growth,
     AnimalType? species,
     String? note,
     List<Routine>? routines,
     bool? isNotiEnabled,
+    String? owner,
   }) = _Pet;
 
   factory Pet.fromJson(Map<String, dynamic> json) => _$PetFromJson(json);

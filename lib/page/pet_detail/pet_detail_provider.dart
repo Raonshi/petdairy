@@ -7,7 +7,6 @@ import 'package:image_cropper/image_cropper.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
 import 'package:path_provider/path_provider.dart';
-import 'package:petdiary/config.dart';
 import 'package:petdiary/data/pet_model.dart';
 import 'package:petdiary/data/routine_model.dart';
 import 'package:petdiary/repository/repository.dart';
@@ -77,7 +76,7 @@ class PetDetailProvider extends ChangeNotifier {
 
     if (croppedFile != null) {
       final Uint8List bytes = await croppedFile.readAsBytes();
-      pet = pet!.copyWith(image: bytes);
+      _repository.uploadFile(bytes, pet!.uid!);
     }
   }
 
@@ -91,8 +90,13 @@ class PetDetailProvider extends ChangeNotifier {
         await File('${tempDir.path}/${pet?.name ?? 'pet'}_${DateFormat('yyyyMMddhhmmss').format(DateTime.now())}.jpeg')
             .create();
 
-    file = await file.writeAsBytes(pet?.image ?? []);
-    return await GallerySaver.saveImage(file.path, toDcim: true) ?? false;
+    Uint8List? data = await _repository.downloadFile(pet!.uid!);
+    if (data == null) {
+      return false;
+    } else {
+      file = await file.writeAsBytes(data);
+      return await GallerySaver.saveImage(file.path, toDcim: true) ?? false;
+    }
   }
 
   void updatePet() async {

@@ -1,3 +1,4 @@
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:image_cropper/image_cropper.dart';
@@ -6,7 +7,6 @@ import 'package:petdiary/data/enums.dart';
 import 'package:petdiary/data/pet_model.dart';
 import 'package:petdiary/data/routine_model.dart';
 import 'package:petdiary/repository/repository.dart';
-import 'package:uuid/uuid.dart';
 
 class AddPetProvider extends ChangeNotifier {
   final Repository _repository = Repository();
@@ -16,7 +16,7 @@ class AddPetProvider extends ChangeNotifier {
     growth: GrowthType.unknown,
   );
 
-  late ImageCache imageCache;
+  Uint8List? cachedImage;
 
   void onClickImageFromGallery() async {
     ImagePicker picker = ImagePicker();
@@ -55,10 +55,9 @@ class AddPetProvider extends ChangeNotifier {
     );
 
     if (croppedFile != null) {
-      final Uint8List bytes = await croppedFile.readAsBytes();
-      imageCache = ImageCache();
-      newPet = newPet.copyWith(image: bytes);
+      cachedImage = await croppedFile.readAsBytes();
     }
+    notifyListeners();
   }
 
   void onChangedName(String? value) {
@@ -92,9 +91,12 @@ class AddPetProvider extends ChangeNotifier {
   }
 
   Future<bool> createPet() async {
-    final String uid = const Uuid().v1();
+    // Initialize Routine
     List<String> dayOfWeeks = ['월', '화', '수', '목', '금', '토', '일'];
-    newPet = newPet.copyWith(uid: uid, routines: List.generate(7, (index) => Routine(dayOfWeek: dayOfWeeks[index])));
-    return await _repository.createPet(newPet);
+    newPet = newPet.copyWith(routines: List.generate(7, (index) => Routine(dayOfWeek: dayOfWeeks[index])));
+
+    // Upload Image
+
+    return await _repository.createPet(newPet, cachedImage);
   }
 }

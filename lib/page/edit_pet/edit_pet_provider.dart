@@ -1,11 +1,8 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:image_cropper/image_cropper.dart';
-import 'package:image_picker/image_picker.dart';
 import 'package:petdiary/data/enums.dart';
 import 'package:petdiary/data/pet_model.dart';
 import 'package:petdiary/repository/repository.dart';
-import 'package:uuid/uuid.dart';
 
 class EditPetProvider extends ChangeNotifier {
   final Repository _repository = Repository();
