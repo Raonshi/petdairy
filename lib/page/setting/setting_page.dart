@@ -1,9 +1,13 @@
+import 'dart:math';
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:loader_overlay/loader_overlay.dart';
 import 'package:petdiary/config.dart';
+import 'package:petdiary/providers/notification_provider.dart';
 import 'package:petdiary/style/theme.dart';
+import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class SettingPage extends StatelessWidget {
@@ -43,6 +47,17 @@ class SettingPage extends StatelessWidget {
                 });
               },
               title: const Text('로그아웃'),
+            ),
+            const Divider(),
+            ListTile(
+              onTap: () async {
+                await Provider.of<NotificationProvider>(context, listen: false).showNotification(
+                  Random().nextInt(999),
+                  'Test Title',
+                  'Test Body',
+                );
+              },
+              title: const Text('알림 테스트'),
             ),
             const Divider(),
           ],

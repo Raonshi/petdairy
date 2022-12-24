@@ -1,31 +1,23 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:petdiary/config.dart';
 
 class AuthProvider extends ChangeNotifier {
   bool isSignIn = false;
 
-  AuthProvider(BuildContext context) {
-    _checkAuth(context);
+  AuthProvider() {
+    checkAuth();
   }
 
-  void _checkAuth(BuildContext context) {
+  void checkAuth() {
     FirebaseAuth.instance.idTokenChanges().listen((user) {
       if (user == null) {
         isSignIn = false;
       } else {
         isSignIn = true;
-        context.go('/');
       }
     });
-
-    User? user = FirebaseAuth.instance.currentUser;
-
-    if (user != null) {
-      isSignIn = true;
-    }
     notifyListeners();
   }
 

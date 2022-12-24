@@ -8,9 +8,6 @@ import 'package:petdiary/page/setting/setting_page.dart';
 
 final GoRouter router = GoRouter(
   initialLocation: '/auth',
-  redirect: (context, state) {
-    return state.location;
-  },
   routes: [
     GoRoute(
       path: '/',
