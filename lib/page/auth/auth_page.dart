@@ -11,30 +11,33 @@ class AuthPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return LoaderOverlay(
-      child: Scaffold(
-        backgroundColor: context.colors.secondary,
-        body: Center(
-          child: Consumer<AuthProvider>(
-            builder: (context, provider, _) {
-              return Column(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  SignInButton(
-                    Buttons.Google,
-                    onPressed: () {
-                      context.loaderOverlay.show();
-                      provider.signIn().then((value) {
-                        if (value) {
-                          context.loaderOverlay.hide();
-                          context.go('/');
-                        }
-                      });
-                    },
-                  ),
-                ],
-              );
-            },
+    return ChangeNotifierProvider(
+      create: (context) => AuthProvider(context),
+      child: LoaderOverlay(
+        child: Scaffold(
+          backgroundColor: context.colors.secondary,
+          body: Center(
+            child: Consumer<AuthProvider>(
+              builder: (context, provider, _) {
+                return Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    SignInButton(
+                      Buttons.Google,
+                      onPressed: () {
+                        context.loaderOverlay.show();
+                        provider.signIn().then((value) {
+                          if (value) {
+                            context.loaderOverlay.hide();
+                            context.go('/');
+                          }
+                        });
+                      },
+                    ),
+                  ],
+                );
+              },
+            ),
           ),
         ),
       ),
