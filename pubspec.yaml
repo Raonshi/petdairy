@@ -48,6 +48,11 @@ dependencies:
   cloud_firestore: ^4.3.0
   firebase_storage: ^11.0.9
   firebase_auth: ^4.2.2
+  firebase_ui_auth: ^1.1.5
+
+  # Authentication
+  google_sign_in: ^5.4.2
+  flutter_signin_button: ^2.0.0
 
   # Annotation
   freezed_annotation: ^2.2.0
@@ -56,7 +61,8 @@ dependencies:
   # Etc
   logger: ^1.1.0
   uuid: ^3.0.7
-  intl: ^0.18.0
+  intl: ^0.17.0
+  loader_overlay: ^2.1.0
 
   # Image Processing
   image_picker: ^0.8.6

@@ -1,12 +1,19 @@
 import 'package:go_router/go_router.dart';
+import 'package:petdiary/config.dart';
 import 'package:petdiary/page/add_pet/add_pet_page.dart';
 import 'package:petdiary/page/auth/auth_page.dart';
+import 'package:petdiary/page/auth/auth_provider.dart';
 import 'package:petdiary/page/edit_pet/edit_pet_page.dart';
 import 'package:petdiary/page/pet_detail/pet_detail_page.dart';
 import 'package:petdiary/page/root/root_page.dart';
 import 'package:petdiary/page/setting/setting_page.dart';
+import 'package:provider/provider.dart';
 
 final GoRouter router = GoRouter(
+  initialLocation: '/auth',
+  redirect: (context, state) {
+    return state.location;
+  },
   routes: [
     GoRoute(
       path: '/',
