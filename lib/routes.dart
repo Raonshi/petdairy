@@ -1,5 +1,6 @@
 import 'package:go_router/go_router.dart';
 import 'package:petdiary/page/add_pet/add_pet_page.dart';
+import 'package:petdiary/page/auth/auth_page.dart';
 import 'package:petdiary/page/edit_pet/edit_pet_page.dart';
 import 'package:petdiary/page/pet_detail/pet_detail_page.dart';
 import 'package:petdiary/page/root/root_page.dart';
@@ -10,6 +11,10 @@ final GoRouter router = GoRouter(
     GoRoute(
       path: '/',
       builder: (context, state) => const RootPage(),
+    ),
+    GoRoute(
+      path: '/auth',
+      builder: (context, state) => const AuthPage(),
     ),
     GoRoute(
       path: '/detail',

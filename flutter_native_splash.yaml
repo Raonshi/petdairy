@@ -1,0 +1,18 @@
+# flutter_native_splash.yaml
+flutter_native_splash:
+  color: "#ffffff"
+  image: assets/images/petdiary_logo_no_bg.png
+
+  # branding: assets//images/petdiary_logo_no_bg.png
+  # color_dark: "#121212"
+  # image_dark: assets/images/petdiary_logo_no_bg.png
+  # branding_dark: assets/images/petdiary_logo_no_bg.png
+
+  android_12:
+    image: assets/images/petdiary_logo_no_bg.png
+    # icon_background_color: "#ffffff"
+    # image_dark: assets/images/petdiary_logo_no_bg.png
+    # icon_background_color_dark: "#121212"
+
+
+  web: false
