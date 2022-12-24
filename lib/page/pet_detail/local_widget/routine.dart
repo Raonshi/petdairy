@@ -88,7 +88,7 @@ class PetRootine extends StatelessWidget {
                             mainAxisSize: MainAxisSize.min,
                             children: [
                               CustomSelectInputField<RoutineType>(
-                                initialText: routine.type?.string ?? RoutineType.etc.string,
+                                initialText: routine.type.string,
                                 options: RoutineType.values,
                                 onChanged: (value) {
                                   newRoutine = newRoutine.copyWith(type: value);
@@ -238,7 +238,7 @@ class __RoutineCardState extends State<_RoutineCard> {
             child: Column(
               children: [
                 Text(
-                  widget.routine.dayOfWeek ?? '',
+                  widget.routine.dayOfWeek,
                   style: context.texts.bodyMedium!.copyWith(
                     fontWeight: FontWeight.bold,
                     color: isEnable ? context.colors.onSecondary : context.colors.onBackground,
@@ -246,7 +246,7 @@ class __RoutineCardState extends State<_RoutineCard> {
                 ),
                 Divider(color: context.colors.onSecondary, thickness: 1.0, height: 1.0),
                 Text(
-                  widget.routine.type?.string ?? RoutineType.etc.string,
+                  widget.routine.type.string,
                   style: context.texts.bodyMedium!.copyWith(
                     fontWeight: FontWeight.bold,
                     color: isEnable ? context.colors.onSecondary : context.colors.onBackground,

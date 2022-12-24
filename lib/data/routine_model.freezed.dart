@@ -20,9 +20,9 @@ Routine _$RoutineFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$Routine {
-  String? get dayOfWeek => throw _privateConstructorUsedError;
-  RoutineType? get type => throw _privateConstructorUsedError;
-  bool? get isEnable => throw _privateConstructorUsedError;
+  String get dayOfWeek => throw _privateConstructorUsedError;
+  RoutineType get type => throw _privateConstructorUsedError;
+  bool get isEnable => throw _privateConstructorUsedError;
   String? get detail => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -36,7 +36,7 @@ abstract class $RoutineCopyWith<$Res> {
       _$RoutineCopyWithImpl<$Res, Routine>;
   @useResult
   $Res call(
-      {String? dayOfWeek, RoutineType? type, bool? isEnable, String? detail});
+      {String dayOfWeek, RoutineType type, bool isEnable, String? detail});
 }
 
 /// @nodoc
@@ -52,24 +52,24 @@ class _$RoutineCopyWithImpl<$Res, $Val extends Routine>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? dayOfWeek = freezed,
-    Object? type = freezed,
-    Object? isEnable = freezed,
+    Object? dayOfWeek = null,
+    Object? type = null,
+    Object? isEnable = null,
     Object? detail = freezed,
   }) {
     return _then(_value.copyWith(
-      dayOfWeek: freezed == dayOfWeek
+      dayOfWeek: null == dayOfWeek
           ? _value.dayOfWeek
           : dayOfWeek // ignore: cast_nullable_to_non_nullable
-              as String?,
-      type: freezed == type
+              as String,
+      type: null == type
           ? _value.type
           : type // ignore: cast_nullable_to_non_nullable
-              as RoutineType?,
-      isEnable: freezed == isEnable
+              as RoutineType,
+      isEnable: null == isEnable
           ? _value.isEnable
           : isEnable // ignore: cast_nullable_to_non_nullable
-              as bool?,
+              as bool,
       detail: freezed == detail
           ? _value.detail
           : detail // ignore: cast_nullable_to_non_nullable
@@ -86,7 +86,7 @@ abstract class _$$_RoutineCopyWith<$Res> implements $RoutineCopyWith<$Res> {
   @override
   @useResult
   $Res call(
-      {String? dayOfWeek, RoutineType? type, bool? isEnable, String? detail});
+      {String dayOfWeek, RoutineType type, bool isEnable, String? detail});
 }
 
 /// @nodoc
@@ -99,24 +99,24 @@ class __$$_RoutineCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? dayOfWeek = freezed,
-    Object? type = freezed,
-    Object? isEnable = freezed,
+    Object? dayOfWeek = null,
+    Object? type = null,
+    Object? isEnable = null,
     Object? detail = freezed,
   }) {
     return _then(_$_Routine(
-      dayOfWeek: freezed == dayOfWeek
+      dayOfWeek: null == dayOfWeek
           ? _value.dayOfWeek
           : dayOfWeek // ignore: cast_nullable_to_non_nullable
-              as String?,
-      type: freezed == type
+              as String,
+      type: null == type
           ? _value.type
           : type // ignore: cast_nullable_to_non_nullable
-              as RoutineType?,
-      isEnable: freezed == isEnable
+              as RoutineType,
+      isEnable: null == isEnable
           ? _value.isEnable
           : isEnable // ignore: cast_nullable_to_non_nullable
-              as bool?,
+              as bool,
       detail: freezed == detail
           ? _value.detail
           : detail // ignore: cast_nullable_to_non_nullable
@@ -129,17 +129,23 @@ class __$$_RoutineCopyWithImpl<$Res>
 
 @JsonSerializable(explicitToJson: true)
 class _$_Routine with DiagnosticableTreeMixin implements _Routine {
-  _$_Routine({this.dayOfWeek, this.type, this.isEnable, this.detail});
+  _$_Routine(
+      {required this.dayOfWeek,
+      this.type = RoutineType.etc,
+      this.isEnable = false,
+      this.detail});
 
   factory _$_Routine.fromJson(Map<String, dynamic> json) =>
       _$$_RoutineFromJson(json);
 
   @override
-  final String? dayOfWeek;
+  final String dayOfWeek;
   @override
-  final RoutineType? type;
+  @JsonKey()
+  final RoutineType type;
   @override
-  final bool? isEnable;
+  @JsonKey()
+  final bool isEnable;
   @override
   final String? detail;
 
@@ -193,19 +199,19 @@ class _$_Routine with DiagnosticableTreeMixin implements _Routine {
 
 abstract class _Routine implements Routine {
   factory _Routine(
-      {final String? dayOfWeek,
-      final RoutineType? type,
-      final bool? isEnable,
+      {required final String dayOfWeek,
+      final RoutineType type,
+      final bool isEnable,
       final String? detail}) = _$_Routine;
 
   factory _Routine.fromJson(Map<String, dynamic> json) = _$_Routine.fromJson;
 
   @override
-  String? get dayOfWeek;
+  String get dayOfWeek;
   @override
-  RoutineType? get type;
+  RoutineType get type;
   @override
-  bool? get isEnable;
+  bool get isEnable;
   @override
   String? get detail;
   @override

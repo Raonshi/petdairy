@@ -31,9 +31,9 @@ class SettingPage extends StatelessWidget {
               onTap: () {
                 SharedPreferences.getInstance().then((value) => value.remove(LocalStorageKey.petList));
               },
-              title: Text('데이터 초기화'),
+              title: const Text('데이터 초기화'),
             ),
-            Divider(),
+            const Divider(),
             ListTile(
               onTap: () {
                 context.loaderOverlay.show();
@@ -42,9 +42,9 @@ class SettingPage extends StatelessWidget {
                   context.go('/auth');
                 });
               },
-              title: Text('로그아웃'),
+              title: const Text('로그아웃'),
             ),
-            Divider(),
+            const Divider(),
           ],
         ),
       ),

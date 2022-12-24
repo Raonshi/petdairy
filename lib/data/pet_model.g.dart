@@ -13,14 +13,18 @@ _$_Pet _$$_PetFromJson(Map<String, dynamic> json) => _$_Pet(
           ? null
           : DateTime.parse(json['birthDay'] as String),
       imageUrl: json['imageUrl'] as String?,
-      sexType: $enumDecodeNullable(_$SexTypeEnumMap, json['sexType']),
-      growth: $enumDecodeNullable(_$GrowthTypeEnumMap, json['growth']),
-      species: $enumDecodeNullable(_$AnimalTypeEnumMap, json['species']),
       note: json['note'] as String?,
+      sexType: $enumDecodeNullable(_$SexTypeEnumMap, json['sexType']) ??
+          SexType.unknown,
+      growth: $enumDecodeNullable(_$GrowthTypeEnumMap, json['growth']) ??
+          GrowthType.unknown,
+      species: $enumDecodeNullable(_$AnimalTypeEnumMap, json['species']) ??
+          AnimalType.unknown,
       routines: (json['routines'] as List<dynamic>?)
-          ?.map((e) => Routine.fromJson(e as Map<String, dynamic>))
-          .toList(),
-      isNotiEnabled: json['isNotiEnabled'] as bool?,
+              ?.map((e) => Routine.fromJson(e as Map<String, dynamic>))
+              .toList() ??
+          const [],
+      isNotiEnabled: json['isNotiEnabled'] as bool? ?? false,
       owner: json['owner'] as String?,
     );
 
@@ -29,11 +33,11 @@ Map<String, dynamic> _$$_PetToJson(_$_Pet instance) => <String, dynamic>{
       'name': instance.name,
       'birthDay': instance.birthDay?.toIso8601String(),
       'imageUrl': instance.imageUrl,
+      'note': instance.note,
       'sexType': _$SexTypeEnumMap[instance.sexType],
       'growth': _$GrowthTypeEnumMap[instance.growth],
       'species': _$AnimalTypeEnumMap[instance.species],
-      'note': instance.note,
-      'routines': instance.routines?.map((e) => e.toJson()).toList(),
+      'routines': instance.routines.map((e) => e.toJson()).toList(),
       'isNotiEnabled': instance.isNotiEnabled,
       'owner': instance.owner,
     };

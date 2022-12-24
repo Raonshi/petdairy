@@ -15,12 +15,12 @@ class Pet with _$Pet {
     String? name,
     DateTime? birthDay,
     String? imageUrl,
-    SexType? sexType,
-    GrowthType? growth,
-    AnimalType? species,
     String? note,
-    List<Routine>? routines,
-    bool? isNotiEnabled,
+    @Default(SexType.unknown) SexType? sexType,
+    @Default(GrowthType.unknown) GrowthType? growth,
+    @Default(AnimalType.unknown) AnimalType? species,
+    @Default([]) List<Routine> routines,
+    @Default(false) bool? isNotiEnabled,
     String? owner,
   }) = _Pet;
 

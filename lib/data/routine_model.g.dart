@@ -7,16 +7,17 @@ part of 'routine_model.dart';
 // **************************************************************************
 
 _$_Routine _$$_RoutineFromJson(Map<String, dynamic> json) => _$_Routine(
-      dayOfWeek: json['dayOfWeek'] as String?,
-      type: $enumDecodeNullable(_$RoutineTypeEnumMap, json['type']),
-      isEnable: json['isEnable'] as bool?,
+      dayOfWeek: json['dayOfWeek'] as String,
+      type: $enumDecodeNullable(_$RoutineTypeEnumMap, json['type']) ??
+          RoutineType.etc,
+      isEnable: json['isEnable'] as bool? ?? false,
       detail: json['detail'] as String?,
     );
 
 Map<String, dynamic> _$$_RoutineToJson(_$_Routine instance) =>
     <String, dynamic>{
       'dayOfWeek': instance.dayOfWeek,
-      'type': _$RoutineTypeEnumMap[instance.type],
+      'type': _$RoutineTypeEnumMap[instance.type]!,
       'isEnable': instance.isEnable,
       'detail': instance.detail,
     };

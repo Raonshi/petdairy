@@ -110,7 +110,7 @@ class PetDetailProvider extends ChangeNotifier {
   }
 
   void updateRoutine(Routine routine, int index) {
-    List<Routine> newRoutines = pet!.routines!.toList();
+    List<Routine> newRoutines = pet!.routines.toList();
     newRoutines.replaceRange(index, index + 1, [routine]);
     pet = pet!.copyWith(routines: newRoutines);
 

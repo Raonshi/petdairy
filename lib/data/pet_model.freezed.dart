@@ -24,11 +24,11 @@ mixin _$Pet {
   String? get name => throw _privateConstructorUsedError;
   DateTime? get birthDay => throw _privateConstructorUsedError;
   String? get imageUrl => throw _privateConstructorUsedError;
+  String? get note => throw _privateConstructorUsedError;
   SexType? get sexType => throw _privateConstructorUsedError;
   GrowthType? get growth => throw _privateConstructorUsedError;
   AnimalType? get species => throw _privateConstructorUsedError;
-  String? get note => throw _privateConstructorUsedError;
-  List<Routine>? get routines => throw _privateConstructorUsedError;
+  List<Routine> get routines => throw _privateConstructorUsedError;
   bool? get isNotiEnabled => throw _privateConstructorUsedError;
   String? get owner => throw _privateConstructorUsedError;
 
@@ -47,11 +47,11 @@ abstract class $PetCopyWith<$Res> {
       String? name,
       DateTime? birthDay,
       String? imageUrl,
+      String? note,
       SexType? sexType,
       GrowthType? growth,
       AnimalType? species,
-      String? note,
-      List<Routine>? routines,
+      List<Routine> routines,
       bool? isNotiEnabled,
       String? owner});
 }
@@ -72,11 +72,11 @@ class _$PetCopyWithImpl<$Res, $Val extends Pet> implements $PetCopyWith<$Res> {
     Object? name = freezed,
     Object? birthDay = freezed,
     Object? imageUrl = freezed,
+    Object? note = freezed,
     Object? sexType = freezed,
     Object? growth = freezed,
     Object? species = freezed,
-    Object? note = freezed,
-    Object? routines = freezed,
+    Object? routines = null,
     Object? isNotiEnabled = freezed,
     Object? owner = freezed,
   }) {
@@ -97,6 +97,10 @@ class _$PetCopyWithImpl<$Res, $Val extends Pet> implements $PetCopyWith<$Res> {
           ? _value.imageUrl
           : imageUrl // ignore: cast_nullable_to_non_nullable
               as String?,
+      note: freezed == note
+          ? _value.note
+          : note // ignore: cast_nullable_to_non_nullable
+              as String?,
       sexType: freezed == sexType
           ? _value.sexType
           : sexType // ignore: cast_nullable_to_non_nullable
@@ -109,14 +113,10 @@ class _$PetCopyWithImpl<$Res, $Val extends Pet> implements $PetCopyWith<$Res> {
           ? _value.species
           : species // ignore: cast_nullable_to_non_nullable
               as AnimalType?,
-      note: freezed == note
-          ? _value.note
-          : note // ignore: cast_nullable_to_non_nullable
-              as String?,
-      routines: freezed == routines
+      routines: null == routines
           ? _value.routines
           : routines // ignore: cast_nullable_to_non_nullable
-              as List<Routine>?,
+              as List<Routine>,
       isNotiEnabled: freezed == isNotiEnabled
           ? _value.isNotiEnabled
           : isNotiEnabled // ignore: cast_nullable_to_non_nullable
@@ -140,11 +140,11 @@ abstract class _$$_PetCopyWith<$Res> implements $PetCopyWith<$Res> {
       String? name,
       DateTime? birthDay,
       String? imageUrl,
+      String? note,
       SexType? sexType,
       GrowthType? growth,
       AnimalType? species,
-      String? note,
-      List<Routine>? routines,
+      List<Routine> routines,
       bool? isNotiEnabled,
       String? owner});
 }
@@ -162,11 +162,11 @@ class __$$_PetCopyWithImpl<$Res> extends _$PetCopyWithImpl<$Res, _$_Pet>
     Object? name = freezed,
     Object? birthDay = freezed,
     Object? imageUrl = freezed,
+    Object? note = freezed,
     Object? sexType = freezed,
     Object? growth = freezed,
     Object? species = freezed,
-    Object? note = freezed,
-    Object? routines = freezed,
+    Object? routines = null,
     Object? isNotiEnabled = freezed,
     Object? owner = freezed,
   }) {
@@ -187,6 +187,10 @@ class __$$_PetCopyWithImpl<$Res> extends _$PetCopyWithImpl<$Res, _$_Pet>
           ? _value.imageUrl
           : imageUrl // ignore: cast_nullable_to_non_nullable
               as String?,
+      note: freezed == note
+          ? _value.note
+          : note // ignore: cast_nullable_to_non_nullable
+              as String?,
       sexType: freezed == sexType
           ? _value.sexType
           : sexType // ignore: cast_nullable_to_non_nullable
@@ -199,14 +203,10 @@ class __$$_PetCopyWithImpl<$Res> extends _$PetCopyWithImpl<$Res, _$_Pet>
           ? _value.species
           : species // ignore: cast_nullable_to_non_nullable
               as AnimalType?,
-      note: freezed == note
-          ? _value.note
-          : note // ignore: cast_nullable_to_non_nullable
-              as String?,
-      routines: freezed == routines
+      routines: null == routines
           ? _value._routines
           : routines // ignore: cast_nullable_to_non_nullable
-              as List<Routine>?,
+              as List<Routine>,
       isNotiEnabled: freezed == isNotiEnabled
           ? _value.isNotiEnabled
           : isNotiEnabled // ignore: cast_nullable_to_non_nullable
@@ -228,12 +228,12 @@ class _$_Pet with DiagnosticableTreeMixin implements _Pet {
       this.name,
       this.birthDay,
       this.imageUrl,
-      this.sexType,
-      this.growth,
-      this.species,
       this.note,
-      final List<Routine>? routines,
-      this.isNotiEnabled,
+      this.sexType = SexType.unknown,
+      this.growth = GrowthType.unknown,
+      this.species = AnimalType.unknown,
+      final List<Routine> routines = const [],
+      this.isNotiEnabled = false,
       this.owner})
       : _routines = routines;
 
@@ -248,31 +248,34 @@ class _$_Pet with DiagnosticableTreeMixin implements _Pet {
   @override
   final String? imageUrl;
   @override
+  final String? note;
+  @override
+  @JsonKey()
   final SexType? sexType;
   @override
+  @JsonKey()
   final GrowthType? growth;
   @override
+  @JsonKey()
   final AnimalType? species;
+  final List<Routine> _routines;
   @override
-  final String? note;
-  final List<Routine>? _routines;
-  @override
-  List<Routine>? get routines {
-    final value = _routines;
-    if (value == null) return null;
+  @JsonKey()
+  List<Routine> get routines {
     if (_routines is EqualUnmodifiableListView) return _routines;
     // ignore: implicit_dynamic_type
-    return EqualUnmodifiableListView(value);
+    return EqualUnmodifiableListView(_routines);
   }
 
   @override
+  @JsonKey()
   final bool? isNotiEnabled;
   @override
   final String? owner;
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'Pet(uid: $uid, name: $name, birthDay: $birthDay, imageUrl: $imageUrl, sexType: $sexType, growth: $growth, species: $species, note: $note, routines: $routines, isNotiEnabled: $isNotiEnabled, owner: $owner)';
+    return 'Pet(uid: $uid, name: $name, birthDay: $birthDay, imageUrl: $imageUrl, note: $note, sexType: $sexType, growth: $growth, species: $species, routines: $routines, isNotiEnabled: $isNotiEnabled, owner: $owner)';
   }
 
   @override
@@ -284,10 +287,10 @@ class _$_Pet with DiagnosticableTreeMixin implements _Pet {
       ..add(DiagnosticsProperty('name', name))
       ..add(DiagnosticsProperty('birthDay', birthDay))
       ..add(DiagnosticsProperty('imageUrl', imageUrl))
+      ..add(DiagnosticsProperty('note', note))
       ..add(DiagnosticsProperty('sexType', sexType))
       ..add(DiagnosticsProperty('growth', growth))
       ..add(DiagnosticsProperty('species', species))
-      ..add(DiagnosticsProperty('note', note))
       ..add(DiagnosticsProperty('routines', routines))
       ..add(DiagnosticsProperty('isNotiEnabled', isNotiEnabled))
       ..add(DiagnosticsProperty('owner', owner));
@@ -304,10 +307,10 @@ class _$_Pet with DiagnosticableTreeMixin implements _Pet {
                 other.birthDay == birthDay) &&
             (identical(other.imageUrl, imageUrl) ||
                 other.imageUrl == imageUrl) &&
+            (identical(other.note, note) || other.note == note) &&
             (identical(other.sexType, sexType) || other.sexType == sexType) &&
             (identical(other.growth, growth) || other.growth == growth) &&
             (identical(other.species, species) || other.species == species) &&
-            (identical(other.note, note) || other.note == note) &&
             const DeepCollectionEquality().equals(other._routines, _routines) &&
             (identical(other.isNotiEnabled, isNotiEnabled) ||
                 other.isNotiEnabled == isNotiEnabled) &&
@@ -322,10 +325,10 @@ class _$_Pet with DiagnosticableTreeMixin implements _Pet {
       name,
       birthDay,
       imageUrl,
+      note,
       sexType,
       growth,
       species,
-      note,
       const DeepCollectionEquality().hash(_routines),
       isNotiEnabled,
       owner);
@@ -350,11 +353,11 @@ abstract class _Pet implements Pet {
       final String? name,
       final DateTime? birthDay,
       final String? imageUrl,
+      final String? note,
       final SexType? sexType,
       final GrowthType? growth,
       final AnimalType? species,
-      final String? note,
-      final List<Routine>? routines,
+      final List<Routine> routines,
       final bool? isNotiEnabled,
       final String? owner}) = _$_Pet;
 
@@ -369,15 +372,15 @@ abstract class _Pet implements Pet {
   @override
   String? get imageUrl;
   @override
+  String? get note;
+  @override
   SexType? get sexType;
   @override
   GrowthType? get growth;
   @override
   AnimalType? get species;
   @override
-  String? get note;
-  @override
-  List<Routine>? get routines;
+  List<Routine> get routines;
   @override
   bool? get isNotiEnabled;
   @override

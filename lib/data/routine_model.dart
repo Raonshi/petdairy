@@ -10,9 +10,9 @@ class Routine with _$Routine {
   // ignore: invalid_annotation_target
   @JsonSerializable(explicitToJson: true)
   factory Routine({
-    String? dayOfWeek,
-    RoutineType? type,
-    bool? isEnable,
+    required String dayOfWeek,
+    @Default(RoutineType.etc) RoutineType type,
+    @Default(false) bool isEnable,
     String? detail,
   }) = _Routine;
 
