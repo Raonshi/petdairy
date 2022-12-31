@@ -1,9 +1,11 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:cloud_functions/cloud_functions.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/foundation.dart';
 import 'package:petdiary/config.dart';
 import 'package:petdiary/data/pet_model.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class Repository {
   final CollectionReference<Map<String, dynamic>> petsRef = FirebaseFirestore.instance.collection('pets');
@@ -11,7 +13,10 @@ class Repository {
   Future<bool> createPet(Pet pet, Uint8List? cachedImage) async {
     final DocumentReference docRef = petsRef.doc();
 
-    String? imageUrl = await uploadFile(cachedImage!, docRef.id);
+    String? imageUrl;
+    if (cachedImage != null) {
+      imageUrl = await uploadFile(cachedImage, docRef.id);
+    }
 
     final bool result = await docRef
         .set(pet.copyWith(uid: docRef.id, owner: FirebaseAuth.instance.currentUser!.uid, imageUrl: imageUrl).toJson())
@@ -90,5 +95,24 @@ class Repository {
     Reference ref = FirebaseStorage.instance.ref('/images/${FirebaseAuth.instance.currentUser!.uid}/$uid.png');
     Uint8List? data = await ref.getData();
     return data;
+  }
+
+  Future<void> enableNotification() async {
+    String token = await getToken();
+    final FirebaseFunctions functions = FirebaseFunctions.instance;
+    await functions.httpsCallable('enableNotification').call(token);
+  }
+
+  Future<void> setToken(String token) async {
+    final SharedPreferences localStorage = await SharedPreferences.getInstance();
+
+    localStorage.setString(LocalStorageKey.fcmToken, token);
+  }
+
+  Future<String> getToken() async {
+    final SharedPreferences localStorage = await SharedPreferences.getInstance();
+    String? token = localStorage.getString(LocalStorageKey.fcmToken);
+
+    return token ?? '';
   }
 }

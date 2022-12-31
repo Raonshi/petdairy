@@ -4,11 +4,9 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:loader_overlay/loader_overlay.dart';
-import 'package:petdiary/config.dart';
 import 'package:petdiary/providers/notification_provider.dart';
 import 'package:petdiary/style/theme.dart';
 import 'package:provider/provider.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 class SettingPage extends StatelessWidget {
   const SettingPage({super.key});
@@ -32,9 +30,7 @@ class SettingPage extends StatelessWidget {
         body: Column(
           children: [
             ListTile(
-              onTap: () {
-                SharedPreferences.getInstance().then((value) => value.remove(LocalStorageKey.petList));
-              },
+              onTap: () {},
               title: const Text('데이터 초기화'),
             ),
             const Divider(),

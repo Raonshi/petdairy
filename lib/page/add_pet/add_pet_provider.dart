@@ -95,7 +95,6 @@ class AddPetProvider extends ChangeNotifier {
     newPet = newPet.copyWith(routines: List.generate(7, (index) => Routine(dayOfWeek: dayOfWeeks[index])));
 
     // Upload Image
-
     return await _repository.createPet(newPet, cachedImage);
   }
 }

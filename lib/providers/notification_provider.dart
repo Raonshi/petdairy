@@ -1,10 +1,13 @@
+import 'package:cloud_functions/cloud_functions.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:petdiary/config.dart';
+import 'package:petdiary/repository/repository.dart';
 
 class NotificationProvider with ChangeNotifier {
   late FlutterLocalNotificationsPlugin plugin;
+  final Repository _repository = Repository();
 
   NotificationProvider() {
     init();
@@ -17,10 +20,14 @@ class NotificationProvider with ChangeNotifier {
 
   void initFcm() async {
     FirebaseMessaging messaging = FirebaseMessaging.instance;
-    await messaging.getToken(
+
+    String token = await messaging.getToken(
           vapidKey: 'BNDU4B7okgsP3OMX--pATl9i3CzhPuHb7jT8YjwHZB2mk_XSwu3I5-J1hoMKFsrPAyRSTGbGO_VlUP7HNpjzbHw',
         ) ??
         '';
+
+    await _repository.setToken(token);
+    lgr.d(token);
 
     await messaging.requestPermission(
       alert: true,
@@ -33,6 +40,7 @@ class NotificationProvider with ChangeNotifier {
     );
 
     FirebaseMessaging.onMessage.listen((RemoteMessage message) {
+      lgr.d(message);
       if (message.notification != null) {
         showNotification(
           message.hashCode,

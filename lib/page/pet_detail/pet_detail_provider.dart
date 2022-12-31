@@ -106,6 +106,9 @@ class PetDetailProvider extends ChangeNotifier {
 
   void changeNotiStatus(bool value) {
     pet = pet!.copyWith(isNotiEnabled: value);
+    if (value) {
+      _repository.enableNotification();
+    }
     updatePet();
   }
 
